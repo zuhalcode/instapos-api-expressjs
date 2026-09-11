@@ -5,7 +5,7 @@ export type UserRole = Database["public"]["Enums"]["user_role"];
 
 interface IUserToken {
   id: string;
-  email?: string;
+  email: string;
   role: UserRole;
 }
 

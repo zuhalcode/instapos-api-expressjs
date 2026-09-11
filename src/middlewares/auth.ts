@@ -38,6 +38,12 @@ export async function isAuthenticated(
     });
   }
 
+  if (!user.email) {
+    return res.status(403).json({
+      error: "User email not found",
+    });
+  }
+
   req.user = {
     id: user.id,
     email: user.email,
