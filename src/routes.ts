@@ -12,7 +12,7 @@ import { isAuthenticated } from "./middlewares/auth";
 // import { capitalController } from "../modules/capital";
 // import { assetController } from "../modules/asset";
 // import trashController from "../modules/trash/trash.controller";
-import productController from "./modules/product/product.controller";
+// import productController from "./modules/product/product.controller";
 import { userController } from "./modules/user";
 // import { productCategoryController } from "../modules/product-category";
 // import { backupController } from "../modules/backup";
