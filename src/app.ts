@@ -12,6 +12,13 @@ app.use(cookieParser());
 
 app.use(corsMiddleware);
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Server is running",
+    data: null,
+  });
+});
+
 app.use("/api", apiRouter);
 
 // Swagger
