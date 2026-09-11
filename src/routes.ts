@@ -25,17 +25,15 @@ const router = express.Router();
 // router.get("/auth/me", isAuthenticated, authController.me);
 
 // USERS
-
 router.get(
-  /*
-    #swagger.tags = ['User']
-    #swagger.summary = 'Get all users'
-    #swagger.security = [{
-      "bearerAuth" : []
-     }]
-  */
-
   "/users",
+  /*
+      #swagger.tags = ['User']
+      #swagger.summary = 'Get all users'
+      #swagger.security = [{
+        "bearerAuth" : []
+       }]
+    */
   userController.findAll,
 );
 
