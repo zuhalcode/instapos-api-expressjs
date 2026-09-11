@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AppError } from "./errors";
-import { ValidationError } from "yup";
+import { ZodError } from "zod";
 
 type Pagination = {
   totalPages: number;
@@ -30,13 +30,13 @@ export default {
         },
         data: error.data,
       });
-    } else if (error instanceof ValidationError) {
+    } else if (error instanceof ZodError) {
       res.status(400).json({
         meta: {
           status: 400,
           message: "Validation error",
         },
-        data: error.errors,
+        data: error.issues,
       });
     } else {
       res.status(500).json({

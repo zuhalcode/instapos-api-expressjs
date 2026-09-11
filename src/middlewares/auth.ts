@@ -1,6 +1,7 @@
 import { Response, NextFunction } from "express";
 import { supabase } from "../libs/supabase";
 import { IReqUser } from "../utils/interfaces";
+import { TABLES } from "../constants/table.constant";
 
 export async function isAuthenticated(
   req: IReqUser,
@@ -8,6 +9,7 @@ export async function isAuthenticated(
   next: NextFunction,
 ) {
   const token = req.headers.authorization?.split(" ")[1];
+  const table = TABLES.USERS;
 
   if (!token) {
     return res.status(401).json({ error: "Unauthorized – no token" });
@@ -25,7 +27,7 @@ export async function isAuthenticated(
   }
 
   const { data: appUser, error: appUserError } = await supabase
-    .from("users")
+    .from(table)
     .select("role")
     .eq("id", user.id)
     .single();

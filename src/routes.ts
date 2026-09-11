@@ -6,13 +6,14 @@ import express from "express";
 
 // import assetBalanceController from "../controllers/asset-balance.controller";
 
-import { isAuthenticated } from "../middlewares/auth";
+import { isAuthenticated } from "./middlewares/auth";
 
 // import { assetTransactionController } from "../modules/asset-transaction";
 // import { capitalController } from "../modules/capital";
 // import { assetController } from "../modules/asset";
 // import trashController from "../modules/trash/trash.controller";
-import productController from "../modules/product/product.controller";
+import productController from "./modules/product/product.controller";
+import { userController } from "./modules/user";
 // import { productCategoryController } from "../modules/product-category";
 // import { backupController } from "../modules/backup";
 
@@ -23,8 +24,11 @@ const router = express.Router();
 // AUTH
 // router.get("/auth/me", isAuthenticated, authController.me);
 
+// USERS
+router.get("/users", userController.findAll);
+
 // PRODUCTS
-router.get("/products", isAuthenticated, productController.findAll);
+// router.get("/products", isAuthenticated, productController.findAll);
 
 // router.post(
 //   "/products",
