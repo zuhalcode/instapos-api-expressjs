@@ -4,8 +4,27 @@ import cookieParser from "cookie-parser";
 
 import { corsMiddleware } from "./configs/cors";
 import docs from "./docs/route";
+import { swaggerUiPath } from "./docs/swagger-ui";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./docs/swagger_output.json";
 
 const app = express();
+
+// Swagger UI static assets
+app.use("/swagger-ui", express.static(swaggerUiPath));
+
+// Swagger documentation
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    customCssUrl: "/swagger-ui/swagger-ui.css",
+    customJs: [
+      "/swagger-ui/swagger-ui-bundle.js",
+      "/swagger-ui/swagger-ui-standalone-preset.js",
+    ],
+  }),
+);
 
 app.use(express.json());
 app.use(cookieParser());
