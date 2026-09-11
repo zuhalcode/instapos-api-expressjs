@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register src/dev.ts",
-    "backup": "tsx src/scripts/backup.ts",
     "build": "tsc"
   },
   "keywords": [],
