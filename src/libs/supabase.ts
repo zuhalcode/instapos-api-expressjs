@@ -1,7 +1,7 @@
 // src/lib/supabase.ts
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL } from "./env";
-import { Database } from "../types/database";
+import { Database } from "../types/database.types";
 
 declare global {
   // Extend globalThis supaya TypeScript ngerti properti ini
