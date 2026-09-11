@@ -9,6 +9,11 @@ import userService from "./user.service";
 
 export default {
   async findAll(req: IReqUser, res: Response): Promise<void> {
+    /**
+     #swagger.tags = ['Auth']
+     
+
+     */
     try {
       const message: string = "Data Retrieved Successfully";
       const users = await userService.findAll();

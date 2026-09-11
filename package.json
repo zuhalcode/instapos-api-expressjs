@@ -1,10 +1,11 @@
 {
-  "name": "Instant POS API",
+  "name": "InstaPOS API",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register src/dev.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "docs": "ts-node src/docs/swagger.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "swagger-jsdoc": "^6.3.0",
+    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5",
@@ -26,8 +27,8 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
-    "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "openapi-types": "^12.1.3",
     "supabase": "^2.117.0",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.23.12"

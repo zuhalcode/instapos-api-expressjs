@@ -1,10 +1,9 @@
 import express from "express";
 import apiRouter from "./routes";
 import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
 
 import { corsMiddleware } from "./configs/cors";
-import { swaggerSpec } from "./docs/swagger";
+import docs from "./docs/route";
 
 const app = express();
 
@@ -13,9 +12,9 @@ app.use(cookieParser());
 
 app.use(corsMiddleware);
 
-// Swagger
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 app.use("/api", apiRouter);
+
+// Swagger
+docs(app);
 
 export default app;

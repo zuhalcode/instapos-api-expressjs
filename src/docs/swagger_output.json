@@ -1,0 +1,66 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "InstaPOS API",
+    "version": "1.0.0",
+    "description": "API documentation for InstaPOS"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Local Development"
+    },
+    {
+      "url": "https://instapos-api-staging.vercel.app",
+      "description": "Staging"
+    },
+    {
+      "url": "https://instapos-api.vercel.app",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "zuhal@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "xxxxxx"
+          }
+        }
+      }
+    }
+  }
+}

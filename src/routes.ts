@@ -25,7 +25,19 @@ const router = express.Router();
 // router.get("/auth/me", isAuthenticated, authController.me);
 
 // USERS
-router.get("/users", userController.findAll);
+
+router.get(
+  /*
+    #swagger.tags = ['User']
+    #swagger.summary = 'Get all users'
+    #swagger.security = [{
+      "bearerAuth" : []
+     }]
+  */
+
+  "/users",
+  userController.findAll,
+);
 
 // PRODUCTS
 // router.get("/products", isAuthenticated, productController.findAll);
