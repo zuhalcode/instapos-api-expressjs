@@ -2,40 +2,20 @@
 
 import express from "express";
 
-// import authController from "../controllers/auth.controller";
-
-// import assetBalanceController from "../controllers/asset-balance.controller";
-
 import { isAuthenticated } from "./middlewares/auth";
-
-// import { assetTransactionController } from "../modules/asset-transaction";
-// import { capitalController } from "../modules/capital";
-// import { assetController } from "../modules/asset";
-// import trashController from "../modules/trash/trash.controller";
-// import productController from "./modules/product/product.controller";
 import { userController } from "./modules/user";
-// import { productCategoryController } from "../modules/product-category";
-// import { backupController } from "../modules/backup";
+import { authController } from "./modules/auth";
 
 //#endregion
 
 const router = express.Router();
 
 // AUTH
-// router.get("/auth/me", isAuthenticated, authController.me);
+router.post("/auth/login", authController.login);
+router.post("/auth/logout", authController.logout);
 
 // USERS
-router.get(
-  "/users",
-  /*
-      #swagger.tags = ['User']
-      #swagger.summary = 'Get all users'
-      #swagger.security = [{
-        "bearerAuth" : []
-       }]
-    */
-  userController.findAll,
-);
+router.get("/users", userController.findAll);
 
 // PRODUCTS
 // router.get("/products", isAuthenticated, productController.findAll);

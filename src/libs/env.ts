@@ -10,4 +10,5 @@ export const SUPABASE_DATABASE_URL: string =
 export const SUPABASE_SERVICE_ROLE_KEY: string =
   process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
-export const ALLOWED_ORIGINS: string = process.env.ALLOWED_ORIGINS ?? "";
+export const ALLOWED_ORIGINS: string[] =
+  process.env.ALLOWED_ORIGINS?.split(",").map((origin) => origin.trim()) ?? [];

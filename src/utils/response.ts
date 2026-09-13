@@ -8,6 +8,18 @@ type Pagination = {
   total: number;
 };
 
+const ERRORS: Record<string, [number, string]> = {
+  invalid_credentials: [401, "Invalid email or password"],
+  validation_failed: [400, "Invalid request"],
+  "23505": [409, "Resource already exists"],
+  "23503": [409, "Referenced resource does not exist"],
+  "23502": [400, "Required field is missing"],
+  "42883": [404, "Requested operation is unavailable"],
+  "42P01": [404, "Requested resource not found"],
+  "42501": [403, "Insufficient privileges"],
+  PGRST116: [404, "Data not found"],
+};
+
 export default {
   success(res: Response, data: any, message: string) {
     res.status(200).json({
@@ -30,7 +42,9 @@ export default {
         },
         data: error.data,
       });
-    } else if (error instanceof ZodError) {
+    }
+
+    if (error instanceof ZodError) {
       res.status(400).json({
         meta: {
           status: 400,
@@ -38,15 +52,37 @@ export default {
         },
         data: error.issues,
       });
-    } else {
-      res.status(500).json({
-        meta: {
-          status: 500,
-          message: "Internal server error",
-        },
-        data: null,
-      });
     }
+
+    let status = 500;
+    let message = "Internal server error";
+
+    if (typeof error === "object" && error !== null) {
+      const errorCode =
+        "code" in error && typeof error.code === "string"
+          ? error.code
+          : undefined;
+
+      const errorStatus =
+        "status" in error && typeof error.status === "number"
+          ? error.status
+          : undefined;
+
+      if (errorCode && ERRORS[errorCode]) {
+        [status, message] = ERRORS[errorCode];
+      } else if (errorStatus === 401) {
+        status = 401;
+        message = "Unauthorized";
+      } else if (errorStatus && errorStatus >= 400 && errorStatus < 500) {
+        status = errorStatus;
+        message = "Request failed";
+      }
+    }
+
+    res.status(status).json({
+      meta: { status, message },
+      data: null,
+    });
   },
 
   unauthorized(res: Response, message: string = "unauthorized") {

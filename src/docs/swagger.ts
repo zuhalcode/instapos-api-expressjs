@@ -1,9 +1,8 @@
-import swaggerAutogen from "swagger-autogen";
+import { OpenAPIV3 } from "openapi-types";
+import { authDocs } from "./auth.doc";
+import { authSchemas } from "./schemas/auth.schema";
 
-const outputFile = "./swagger_output.json";
-const endpointsFile = ["../app.ts"];
-
-const doc = {
+export const swaggerDocument: OpenAPIV3.Document = {
   openapi: "3.0.0",
   info: {
     title: "InstaPOS API",
@@ -12,23 +11,19 @@ const doc = {
   },
 
   servers: [
-    { url: "http://localhost:3001", description: "Local Development" },
     { url: "https://instapos-api-staging.vercel.app", description: "Staging" },
     { url: "https://instapos-api.vercel.app", description: "Production" },
   ],
 
+  paths: { ...authDocs },
+
   components: {
+    schemas: {
+      ...authSchemas,
+    },
+
     securitySchemes: {
       bearerAuth: { type: "http", scheme: "bearer" },
     },
-
-    schemas: {
-      LoginRequest: {
-        email: "zuhal@gmail.com",
-        password: "xxxxxx",
-      },
-    },
   },
 };
-
-swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFile, doc);

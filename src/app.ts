@@ -6,8 +6,8 @@ import swaggerUi from "swagger-ui-express";
 import { corsMiddleware } from "./configs/cors";
 import { swaggerUiPath } from "./docs/swagger-ui";
 
-import swaggerDocument from "./docs/swagger_output.json";
 import docs from "./docs/route";
+import { swaggerDocument } from "./docs/swagger";
 
 const app = express();
 
