@@ -17,7 +17,7 @@ export const authDocs: OpenAPIV3.PathsObject = {
                 email: {
                   type: "string",
                   format: "email",
-                  example: "admin@gmail.com",
+                  example: "zuhal@gmail.com",
                 },
                 password: {
                   type: "string",
