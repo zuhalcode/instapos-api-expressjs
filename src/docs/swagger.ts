@@ -1,6 +1,9 @@
 import { OpenAPIV3 } from "openapi-types";
-import { authDocs } from "./auth.doc";
-import { authSchemas } from "./schemas/auth.schema";
+
+import { authSchemas } from "./auth/auth.schema";
+import { userSchemas } from "./user/user.schema";
+import { authPaths } from "./auth/auth.path";
+import { userPaths } from "./user/user.path";
 
 export const swaggerDocument: OpenAPIV3.Document = {
   openapi: "3.0.0",
@@ -11,16 +14,15 @@ export const swaggerDocument: OpenAPIV3.Document = {
   },
 
   servers: [
+    { url: "http://localhost:3001", description: "Development" },
     { url: "https://instapos-api-staging.vercel.app", description: "Staging" },
     { url: "https://instapos-api.vercel.app", description: "Production" },
   ],
 
-  paths: { ...authDocs },
+  paths: { ...authPaths, ...userPaths },
 
   components: {
-    schemas: {
-      ...authSchemas,
-    },
+    schemas: { ...authSchemas, ...userSchemas },
 
     securitySchemes: {
       bearerAuth: { type: "http", scheme: "bearer" },
