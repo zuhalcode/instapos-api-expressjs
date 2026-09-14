@@ -17,11 +17,6 @@ export default {
   },
 
   async logout(req: Request, res: Response): Promise<void> {
-    /**
-     #swagger.tags = ['Auth']
-     #swagger.summary = 'Logout user'
-     */
-
     try {
       await authService.logout();
 
