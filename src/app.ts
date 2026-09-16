@@ -1,18 +1,16 @@
 import express from "express";
 import apiRouter from "./routes";
 import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
-
-import { corsMiddleware } from "./configs/cors";
-import { swaggerUiPath } from "./docs/swagger-ui";
 
 import docs from "./docs/route";
-import { swaggerDocument } from "./docs/swagger";
+import swaggerUiDist from "swagger-ui-dist";
+
+import { corsMiddleware } from "./configs/cors";
 
 const app = express();
 
 // Swagger UI static assets
-app.use("/swagger-ui", express.static(swaggerUiPath));
+app.use("/swagger-ui", express.static(swaggerUiDist.getAbsoluteFSPath()));
 
 app.use(express.json());
 app.use(cookieParser());
