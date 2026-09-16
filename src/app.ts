@@ -9,6 +9,8 @@ import docs from "./docs/route";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 // Swagger UI static assets
 app.use("/swagger-ui", express.static(swaggerUiPath));
 

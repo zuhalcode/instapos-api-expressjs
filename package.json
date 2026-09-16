@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register src/dev.ts",
     "build": "tsc",
+    "start": "node dist/dev.js",
     "docs": "ts-node src/docs/swagger.ts"
   },
   "keywords": [],

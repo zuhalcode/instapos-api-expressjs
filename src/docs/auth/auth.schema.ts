@@ -24,13 +24,40 @@ export const authSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
     properties: {
       access_token: {
         type: "string",
-        description: "JWT access token used to authenticate API requests.",
         example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
       },
       refresh_token: {
         type: "string",
-        description: "Token used to obtain a new access token.",
         example: "v1.MTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw...",
+      },
+      expiresIn: {
+        type: "number",
+        example: 3600,
+      },
+
+      user: {
+        type: "object",
+        required: ["id", "name", "email", "role"],
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+            example: "45863156-7d72-48d0-8934-1f52721e6120",
+          },
+          name: {
+            type: "string",
+            example: "tes",
+          },
+          email: {
+            type: "string",
+            format: "email",
+            example: "tes@gmail.com",
+          },
+          role: {
+            type: "string",
+            example: "customer",
+          },
+        },
       },
     },
   },
