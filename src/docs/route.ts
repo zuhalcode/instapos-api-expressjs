@@ -7,10 +7,4 @@ import { swaggerUiOptions, swaggerUiPath } from "./swagger-ui";
 
 export default function docs(app: Express) {
   app.use("/swagger-ui", express.static(swaggerUiPath));
-
-  app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocument, swaggerUiOptions),
-  );
 }

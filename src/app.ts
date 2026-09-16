@@ -11,15 +11,28 @@ import { swaggerDocument } from "./docs/swagger";
 
 const app = express();
 
+// Swagger UI static assets
+app.use("/swagger-ui", express.static(swaggerUiPath));
+
+// Swagger documentation
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    customCssUrl: "/swagger-ui/swagger-ui.css",
+    customJs: [
+      "/swagger-ui/swagger-ui-bundle.js",
+      "/swagger-ui/swagger-ui-standalone-preset.js",
+    ],
+  }),
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(corsMiddleware);
 
-// Swagger
-docs(app);
-
-app.get("/", (_, res) => {
+app.get("/", (req, res) => {
   /**
    * #swagger.ignore = true
    */
