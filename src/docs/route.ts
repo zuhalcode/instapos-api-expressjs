@@ -1,24 +1,16 @@
-import { Express } from "express";
-import swaggerUi from "swagger-ui-express";
+import express from "express";
+import type { Express } from "express";
 
-import fs from "fs";
-import path from "path";
+import swaggerUi from "swagger-ui-express";
 import { swaggerDocument } from "./swagger";
+import { swaggerUiOptions, swaggerUiPath } from "./swagger-ui";
 
 export default function docs(app: Express) {
-  const css = fs.readFileSync(
-    path.resolve(
-      __dirname,
-      "../../node_modules/swagger-ui-dist/swagger-ui.css",
-    ),
-    "utf-8",
-  );
+  app.use("/swagger-ui", express.static(swaggerUiPath));
 
   app.use(
     "/api-docs",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerDocument, {
-      customCss: css,
-    }),
+    swaggerUi.setup(swaggerDocument, swaggerUiOptions),
   );
 }
