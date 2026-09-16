@@ -17,4 +17,21 @@ export const authSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       },
     },
   },
+
+  LoginResponse: {
+    type: "object",
+    required: ["access_token", "refresh_token"],
+    properties: {
+      access_token: {
+        type: "string",
+        description: "JWT access token used to authenticate API requests.",
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      },
+      refresh_token: {
+        type: "string",
+        description: "Token used to obtain a new access token.",
+        example: "v1.MTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw...",
+      },
+    },
+  },
 };

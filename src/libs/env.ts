@@ -2,6 +2,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+export type AppEnv = "development" | "staging" | "production";
+
+export const APP_ENV: AppEnv =
+  process.env.APP_ENV === "staging"
+    ? "staging"
+    : process.env.APP_ENV === "prod"
+      ? "production"
+      : "development";
+
 export const PORT: number = Number(process.env.PORT) || 3001;
 
 export const SUPABASE_URL: string = process.env.SUPABASE_URL || "";
