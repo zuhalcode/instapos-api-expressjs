@@ -6,7 +6,6 @@ import swaggerUi from "swagger-ui-express";
 import { corsMiddleware } from "./configs/cors";
 import { swaggerUiPath } from "./docs/swagger-ui";
 
-import docs from "./docs/route";
 import { swaggerDocument } from "./docs/swagger";
 
 const app = express();
@@ -16,7 +15,7 @@ app.use("/swagger-ui", express.static(swaggerUiPath));
 
 // Swagger documentation
 app.use(
-  "/docs",
+  "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCssUrl: "/swagger-ui/swagger-ui.css",
@@ -31,9 +30,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(corsMiddleware);
-
-// Swagger
-docs(app);
 
 app.get("/", (req, res) => {
   /**

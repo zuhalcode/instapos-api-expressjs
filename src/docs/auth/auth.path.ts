@@ -61,7 +61,6 @@ export const authPaths: OpenAPIV3.PathsObject = {
     post: {
       tags,
       summary: "Logout user",
-
       security: [{ bearerAuth: [] }],
 
       responses: {
