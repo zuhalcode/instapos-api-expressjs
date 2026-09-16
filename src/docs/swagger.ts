@@ -1,13 +1,9 @@
-import swaggerUiDist from "swagger-ui-dist";
-
 import { OpenAPIV3 } from "openapi-types";
 import { authSchemas } from "./auth/auth.schema";
 import { userSchemas } from "./user/user.schema";
 import { authPaths } from "./auth/auth.path";
 import { userPaths } from "./user/user.path";
 import { APP_ENV, AppEnv } from "../libs/env";
-
-export const swaggerUiPath = swaggerUiDist.getAbsoluteFSPath();
 
 const servers: Record<AppEnv, OpenAPIV3.ServerObject> = {
   development: { url: "http://localhost:3001", description: "Development" },

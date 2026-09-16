@@ -4,30 +4,19 @@ import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 
 import { corsMiddleware } from "./configs/cors";
-import { swaggerDocument, swaggerUiPath } from "./docs/swagger";
+import { swaggerDocument } from "./docs/swagger";
 
 const app = express();
 
 // Swagger UI static assets
-app.use("/swagger-ui", express.static(swaggerUiPath));
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    customCssUrl: "/swagger-ui/swagger-ui.css",
-    customJs: [
-      "/swagger-ui/swagger-ui-bundle.js",
-      "/swagger-ui/swagger-ui-standalone-preset.js",
-    ],
-  }),
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(corsMiddleware);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   /**
    * #swagger.ignore = true
    */
