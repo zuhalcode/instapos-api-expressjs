@@ -1,6 +1,6 @@
 import cors from "cors";
 import type { RequestHandler } from "express";
-import { CORS_FRONTEND_ORIGIN } from "../libs/env";
+import { CORS_FRONTEND_ORIGINS } from "../libs/env";
 
 const corsHandler = cors({
   origin(origin, callback) {
@@ -8,7 +8,7 @@ const corsHandler = cors({
       return callback(null, true);
     }
 
-    if (origin === CORS_FRONTEND_ORIGIN) {
+    if (CORS_FRONTEND_ORIGINS.includes(origin)) {
       return callback(null, true);
     }
 
@@ -20,16 +20,13 @@ const corsHandler = cors({
 export const corsMiddleware: RequestHandler = (req, res, next) => {
   const origin = req.get("Origin");
 
-  // Request tanpa Origin:
+  // Request without Origin:
   // curl, Postman, server-to-server, dll.
   if (!origin) {
     return next();
   }
 
   // Same-origin:
-  // https://instapos-api-staging.vercel.app
-  //        ↓
-  // https://instapos-api-staging.vercel.app/api/*
   const currentOrigin = `${req.protocol}://${req.get("host")}`;
 
   if (origin === currentOrigin) {
@@ -37,8 +34,5 @@ export const corsMiddleware: RequestHandler = (req, res, next) => {
   }
 
   // Cross-origin:
-  // http://localhost:3000
-  //        ↓
-  // https://instapos-api-staging.vercel.app/api/*
   return corsHandler(req, res, next);
 };

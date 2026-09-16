@@ -19,5 +19,7 @@ export const SUPABASE_DATABASE_URL: string =
 export const SUPABASE_SERVICE_ROLE_KEY: string =
   process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
-export const CORS_FRONTEND_ORIGIN: string =
-  process.env.CORS_FRONTEND_ORIGIN || "";
+export const CORS_FRONTEND_ORIGINS = [
+  process.env.CORS_FRONTEND_ORIGIN_LOCAL,
+  process.env.CORS_FRONTEND_ORIGIN_STAGING,
+].filter((origin): origin is string => Boolean(origin));
