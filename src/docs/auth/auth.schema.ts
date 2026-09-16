@@ -8,12 +8,12 @@ export const authSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       email: {
         type: "string",
         format: "email",
-        example: "admin@gmail.com",
+        example: "tes@gmail.com",
       },
       password: {
         type: "string",
         format: "password",
-        example: "password123",
+        example: "tes123",
       },
     },
   },
