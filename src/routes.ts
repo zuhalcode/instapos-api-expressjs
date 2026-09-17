@@ -15,7 +15,7 @@ const router = express.Router();
 router.post("/auth/login", authController.login);
 router.post("/auth/logout", isAuthenticated, authController.logout);
 
-// USERS
+// USERS [SUPERUSER]
 router.get(
   "/users",
   isAuthenticated,
@@ -35,6 +35,13 @@ router.post(
   isAuthenticated,
   authorize("superuser"),
   userController.createAuthUser,
+);
+
+router.patch(
+  "/users/:id",
+  isAuthenticated,
+  authorize("superuser"),
+  userController.update,
 );
 
 // PRODUCTS

@@ -49,11 +49,10 @@ export const userSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
     type: "object",
     properties: {
       name: { type: "string", example: "zuhal" },
-      email: { type: "string", format: "email", example: "newemail@gmail.com" },
       role: {
         type: "string",
-        enum: ["owner", "cashier", "customer"],
-        example: "cashier",
+        enum: ["owner", "cashier", "customer", "superuser"],
+        example: "owner",
       },
     },
     minProperties: 1,

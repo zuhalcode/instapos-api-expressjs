@@ -1,7 +1,11 @@
 import { User } from "@supabase/supabase-js";
 import { TABLES } from "../../constants/table.constant";
 import { supabase } from "../../libs/supabase";
-import { CreateAuthUserPayload, UserRow } from "./user.types";
+import {
+  CreateAuthUserPayload,
+  UpdateUserPayload,
+  UserRow,
+} from "./user.types";
 
 const table = TABLES.USERS;
 
@@ -32,5 +36,18 @@ export default {
     if (error) throw error;
 
     return data.user;
+  },
+
+  async update(id: string, payload: UpdateUserPayload): Promise<UserRow> {
+    const { data, error } = await supabase
+      .from(table)
+      .update(payload)
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    if (error) throw error;
+
+    return data;
   },
 };

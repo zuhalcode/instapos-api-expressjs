@@ -20,10 +20,16 @@ interface CreateAuthUserPayload {
   };
 }
 
+type UpdateUserPayload = {
+  name?: string;
+  role?: UserRole;
+};
+
 export type {
   UserResponse,
   UserRow,
   UserInsert,
   UserRole,
   CreateAuthUserPayload,
+  UpdateUserPayload,
 };

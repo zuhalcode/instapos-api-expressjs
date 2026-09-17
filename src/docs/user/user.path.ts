@@ -184,6 +184,87 @@ export const userPaths: OpenAPIV3.PathsObject = {
       },
     },
 
+    patch: {
+      tags,
+      summary: "Update user",
+      description: "Update an existing user by UUID.",
+      security: [{ bearerAuth: [] }],
+
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "User UUID",
+          schema: {
+            type: "string",
+            format: "uuid",
+          },
+          example: "45863156-7d72-48d0-8934-1f52721e6120",
+        },
+      ],
+
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/UpdateUserRequest",
+            },
+          },
+        },
+      },
+
+      responses: {
+        200: {
+          description: "User updated successfully",
+          content: {
+            "application/json": {
+              schema: responseSchema(200, "User updated successfully", {
+                $ref: "#/components/schemas/User",
+              }),
+            },
+          },
+        },
+
+        400: {
+          description: "Invalid request",
+          content: {
+            "application/json": {
+              schema: validationErrorResponseSchema(),
+            },
+          },
+        },
+
+        401: {
+          description: "Unauthorized",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(401, "Unauthorized"),
+            },
+          },
+        },
+
+        403: {
+          description: "Insufficient privileges",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(403, "Insufficient privileges"),
+            },
+          },
+        },
+
+        404: {
+          description: "Not Found",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(404, "Data not found"),
+            },
+          },
+        },
+      },
+    },
+
     delete: {
       tags,
       summary: "Delete user",

@@ -1,7 +1,7 @@
 //#region-imports
 
 import userRepository from "./user.repository";
-import { CreateAuthUserDTO } from "./user.schema";
+import { CreateAuthUserDTO, UpdateUserDTO } from "./user.schema";
 import { CreateAuthUserPayload, UserResponse, UserRow } from "./user.types";
 //#endregion
 
@@ -33,5 +33,9 @@ export default {
       email: user.email!,
       role: user.app_metadata.role,
     };
+  },
+
+  async update(id: string, dto: UpdateUserDTO): Promise<UserRow> {
+    return await userRepository.update(id, dto);
   },
 };

@@ -4,7 +4,11 @@ import { Response } from "express";
 import { IReqUser } from "../../utils/interfaces";
 import response from "../../utils/response";
 import userService from "./user.service";
-import { createAuthUserSchema, userIdSchema } from "./user.schema";
+import {
+  createAuthUserSchema,
+  updateUserSchema,
+  userIdSchema,
+} from "./user.schema";
 
 //#endregion
 
@@ -39,6 +43,20 @@ export default {
       const message: string = "Authenticated user created successfully";
 
       const user = await userService.createAuthUser(dto);
+
+      return response.success(res, user, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  async update(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const { id } = userIdSchema.parse(req.params);
+      const dto = updateUserSchema.parse(req.body);
+      const message: string = "User updated successfully";
+
+      const user = await userService.update(id, dto);
 
       return response.success(res, user, message, 201);
     } catch (error) {

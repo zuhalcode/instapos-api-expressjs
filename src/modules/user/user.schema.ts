@@ -10,6 +10,12 @@ export const createAuthUserSchema = z.object({
   password: z.string().min(8),
 });
 
-type CreateAuthUserDTO = z.infer<typeof createAuthUserSchema>;
+export const updateUserSchema = z.object({
+  name: z.string().min(1),
+  role: z.enum(["superuser", "owner", "supervisor", "cashier"]),
+});
 
-export type { CreateAuthUserDTO };
+type CreateAuthUserDTO = z.infer<typeof createAuthUserSchema>;
+type UpdateUserDTO = z.infer<typeof updateUserSchema>;
+
+export type { CreateAuthUserDTO, UpdateUserDTO };
