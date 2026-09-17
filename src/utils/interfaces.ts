@@ -1,7 +1,5 @@
 import { Request } from "express";
-import { Database } from "../types/database.types";
-
-export type UserRole = Database["public"]["Enums"]["user_role"];
+import { UserRole } from "../modules/user/user.types";
 
 interface IUserToken {
   id: string;

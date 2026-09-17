@@ -2,12 +2,7 @@ import { Database } from "../../types/database.types";
 
 type UserRow = Database["public"]["Tables"]["users"]["Row"];
 type UserInsert = Database["public"]["Tables"]["users"]["Insert"];
-
-export enum UserRole {
-  OWNER = "OWNER",
-  CASHIER = "CASHIER",
-  CUSTOMER = "CUSTOMER",
-}
+type UserRole = Database["public"]["Enums"]["user_role"];
 
 interface UserResponse {
   id: string;
@@ -25,4 +20,10 @@ interface CreateAuthUserPayload {
   };
 }
 
-export type { UserResponse, UserRow, UserInsert, CreateAuthUserPayload };
+export type {
+  UserResponse,
+  UserRow,
+  UserInsert,
+  UserRole,
+  CreateAuthUserPayload,
+};

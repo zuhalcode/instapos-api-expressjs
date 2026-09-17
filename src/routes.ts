@@ -5,6 +5,7 @@ import express from "express";
 import { isAuthenticated } from "./middlewares/auth";
 import { userController } from "./modules/user";
 import { authController } from "./modules/auth";
+import { authorize } from "./middlewares/authorize";
 
 //#endregion
 
@@ -12,12 +13,29 @@ const router = express.Router();
 
 // AUTH
 router.post("/auth/login", authController.login);
-router.post("/auth/logout", authController.logout);
+router.post("/auth/logout", isAuthenticated, authController.logout);
 
 // USERS
-router.get("/users", userController.findAll);
-router.get("/users/:id", userController.findOne);
-router.post("/users", userController.createAuthUser);
+router.get(
+  "/users",
+  isAuthenticated,
+  authorize("superuser"),
+  userController.findAll,
+);
+
+router.get(
+  "/users/:id",
+  isAuthenticated,
+  authorize("superuser"),
+  userController.findOne,
+);
+
+router.post(
+  "/users",
+  isAuthenticated,
+  authorize("superuser"),
+  userController.createAuthUser,
+);
 
 // PRODUCTS
 // router.get("/products", isAuthenticated, productController.findAll);
