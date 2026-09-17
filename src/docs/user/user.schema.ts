@@ -27,19 +27,20 @@ export const userSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
     },
   },
 
-  CreateUserRequest: {
+  CreateAuthUserRequest: {
     type: "object",
-    required: ["name", "email", "role"],
+    required: ["name", "email", "password", "role"],
     properties: {
       name: {
         type: "string",
         example: "andi",
       },
       email: { type: "string", format: "email", example: "andi@gmail.com" },
-      role: {
+      password: {
         type: "string",
-        enum: ["owner", "cashier", "customer"],
-        example: "cashier",
+        format: "password",
+        minLength: 8,
+        example: "password123",
       },
     },
   },

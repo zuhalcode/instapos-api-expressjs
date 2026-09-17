@@ -57,9 +57,133 @@ export const userPaths: OpenAPIV3.PathsObject = {
         },
       },
     },
+
+    post: {
+      tags,
+      summary: "Create Auth User",
+      security: [{ bearerAuth: [] }],
+
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/CreateAuthUserRequest",
+            },
+          },
+        },
+      },
+
+      responses: {
+        200: {
+          description: "Authenticated user created successfully",
+          content: {
+            "application/json": {
+              schema: responseSchema(
+                200,
+                "Authenticated user created successfully",
+                {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/User",
+                  },
+                },
+              ),
+            },
+          },
+        },
+
+        400: {
+          description: "Invalid Request",
+          content: {
+            "application/json": {
+              schema: validationErrorResponseSchema(),
+            },
+          },
+        },
+
+        403: {
+          description: "Forbidden",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(403, "Insufficient priviledges"),
+            },
+          },
+        },
+
+        404: {
+          description: "Not Found",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(404, "Requested resource not found"),
+            },
+          },
+        },
+      },
+    },
   },
 
   "/api/users/{id}": {
+    get: {
+      tags,
+      summary: "Get user by id",
+      security: [{ bearerAuth: [] }],
+
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "User UUID",
+          schema: {
+            type: "string",
+            format: "uuid",
+          },
+          example: "45863156-7d72-48d0-8934-1f52721e6120",
+        },
+      ],
+
+      responses: {
+        200: {
+          description: "User retrieved successfully",
+          content: {
+            "application/json": {
+              schema: responseSchema(200, "User retrieved successfully", {
+                nullable: true,
+              }),
+            },
+          },
+        },
+
+        400: {
+          description: "Invalid request",
+          content: {
+            "application/json": {
+              schema: validationErrorResponseSchema(),
+            },
+          },
+        },
+
+        403: {
+          description: "Insufficient privileges",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(403, "Insufficient privileges"),
+            },
+          },
+        },
+
+        404: {
+          description: "Not Found",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(404, "Data not found"),
+            },
+          },
+        },
+      },
+    },
+
     delete: {
       tags,
       summary: "Delete user",

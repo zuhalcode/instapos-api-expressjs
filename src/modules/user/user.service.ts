@@ -1,12 +1,37 @@
 //#region-imports
+
 import userRepository from "./user.repository";
-import { UserResponse, UserRow } from "./user.types";
+import { CreateAuthUserDTO } from "./user.schema";
+import { CreateAuthUserPayload, UserResponse, UserRow } from "./user.types";
 //#endregion
 
 export default {
   async findAll(): Promise<UserRow[]> {
-    const data = await userRepository.findAll();
+    return await userRepository.findAll();
+  },
 
-    return data;
+  async findOne(id: string): Promise<UserRow> {
+    return await userRepository.findOne(id);
+  },
+
+  async createAuthUser(dto: CreateAuthUserDTO): Promise<UserResponse> {
+    const payload: CreateAuthUserPayload = {
+      email: dto.email,
+      password: dto.password,
+      email_confirm: true,
+
+      user_metadata: {
+        name: dto.name,
+      },
+    };
+
+    const user = await userRepository.createAuthUser(payload);
+
+    return {
+      id: user.id,
+      name: user.user_metadata.name,
+      email: user.email!,
+      role: user.app_metadata.role,
+    };
   },
 };

@@ -16,6 +16,8 @@ router.post("/auth/logout", authController.logout);
 
 // USERS
 router.get("/users", userController.findAll);
+router.get("/users/:id", userController.findOne);
+router.post("/users", userController.createAuthUser);
 
 // PRODUCTS
 // router.get("/products", isAuthenticated, productController.findAll);
