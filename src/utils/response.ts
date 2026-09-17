@@ -21,10 +21,10 @@ const ERRORS: Record<string, [number, string]> = {
 };
 
 export default {
-  success(res: Response, data: any, message: string) {
-    res.status(200).json({
+  success(res: Response, data: any, message: string, statusCode = 200) {
+    res.status(statusCode).json({
       meta: {
-        status: 200,
+        status: statusCode,
         message,
       },
       data,

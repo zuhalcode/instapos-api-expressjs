@@ -75,12 +75,12 @@ export const userPaths: OpenAPIV3.PathsObject = {
       },
 
       responses: {
-        200: {
+        201: {
           description: "Authenticated user created successfully",
           content: {
             "application/json": {
               schema: responseSchema(
-                200,
+                201,
                 "Authenticated user created successfully",
                 {
                   type: "array",

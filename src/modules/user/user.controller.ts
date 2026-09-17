@@ -40,7 +40,7 @@ export default {
 
       const user = await userService.createAuthUser(dto);
 
-      return response.success(res, user, message);
+      return response.success(res, user, message, 201);
     } catch (error) {
       return response.error(res, error);
     }
