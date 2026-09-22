@@ -6,6 +6,7 @@ import { isAuthenticated } from "./middlewares/auth";
 import { userController } from "./modules/user";
 import { authController } from "./modules/auth";
 import { authorize } from "./middlewares/authorize";
+import { productController } from "./modules/product";
 
 //#endregion
 
@@ -45,15 +46,10 @@ router.patch(
 );
 
 // PRODUCTS
-// router.get("/products", isAuthenticated, productController.findAll);
+router.get("/products", isAuthenticated, productController.findAll);
+router.post("/products", isAuthenticated, productController.create);
+router.patch("/products/:id", isAuthenticated, productController.update);
 
-// router.post(
-//   "/products",
-//   isAuthenticated,
-//   // upload.single("image"),
-//   productController.create,
-// );
-// router.patch("/products/:id", isAuthenticated, productController.update);
 // router.delete("/products/:id", isAuthenticated, productController.remove);
 
 // PRODUCT CATEGORIES

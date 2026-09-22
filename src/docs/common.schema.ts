@@ -42,4 +42,5 @@ export const validationErrorResponseSchema = (): OpenAPIV3.SchemaObject =>
     items: {
       type: "object",
     },
+    example: [{}],
   });
