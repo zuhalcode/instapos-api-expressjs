@@ -4,6 +4,8 @@ import { userSchemas } from "./user/user.schema";
 import { authPaths } from "./auth/auth.path";
 import { userPaths } from "./user/user.path";
 import { APP_ENV, AppEnv } from "../libs/env";
+import { productSchemas } from "./product/product.schema";
+import { productPaths } from "./product/product.path";
 
 const servers: Record<AppEnv, OpenAPIV3.ServerObject> = {
   development: { url: "http://localhost:3001", description: "Development" },
@@ -27,10 +29,10 @@ export const swaggerDocument: OpenAPIV3.Document = {
 
   servers: [servers[APP_ENV]],
 
-  paths: { ...authPaths, ...userPaths },
+  paths: { ...authPaths, ...userPaths, ...productPaths },
 
   components: {
-    schemas: { ...authSchemas, ...userSchemas },
+    schemas: { ...authSchemas, ...userSchemas, ...productSchemas },
 
     securitySchemes: {
       bearerAuth: { type: "http", scheme: "bearer" },
