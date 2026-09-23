@@ -17,6 +17,7 @@ interface CreateAuthUserPayload {
   email_confirm: boolean;
   user_metadata: {
     name: string;
+    role: UserRole;
   };
 }
 

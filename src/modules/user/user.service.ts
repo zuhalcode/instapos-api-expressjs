@@ -22,6 +22,7 @@ export default {
 
       user_metadata: {
         name: dto.name,
+        role: dto.role,
       },
     };
 
