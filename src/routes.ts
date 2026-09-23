@@ -7,6 +7,7 @@ import { userController } from "./modules/user";
 import { authController } from "./modules/auth";
 import { authorize } from "./middlewares/authorize";
 import { productController } from "./modules/product";
+import { productStockController } from "./modules/product-stock";
 
 //#endregion
 
@@ -49,6 +50,10 @@ router.patch(
 router.get("/products", isAuthenticated, productController.findAll);
 router.post("/products", isAuthenticated, productController.create);
 router.patch("/products/:id", isAuthenticated, productController.update);
+
+// PRODUCT STOCKS
+router.get("/product-stocks", isAuthenticated, productStockController.findAll);
+router.post("/product-stocks", isAuthenticated, productStockController.create);
 
 // router.delete("/products/:id", isAuthenticated, productController.remove);
 
