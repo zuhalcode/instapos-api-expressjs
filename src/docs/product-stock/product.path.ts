@@ -12,6 +12,8 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
     get: {
       tags,
       summary: "Get all product stocks",
+      description:
+        "Retrieve all product stocks with their associated product information.",
       security: [{ bearerAuth: [] }],
 
       responses: {
@@ -25,7 +27,7 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
                 {
                   type: "array",
                   items: {
-                    $ref: "#/components/schemas/ProductStock",
+                    $ref: "#/components/schemas/ProductStockResponse",
                   },
                 },
               ),
@@ -56,6 +58,7 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
     post: {
       tags,
       summary: "Create product stock",
+      description: "Create stock for a product at a specific location.",
       security: [{ bearerAuth: [] }],
 
       requestBody: {
@@ -145,18 +148,19 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
           name: "productId",
           in: "path",
           required: true,
-          description: "Product UUID",
+          description: "Product UUID.",
           schema: {
             type: "string",
             format: "uuid",
           },
           example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
         },
+
         {
           name: "location",
           in: "path",
           required: true,
-          description: "Stock location",
+          description: "Stock location.",
           schema: {
             $ref: "#/components/schemas/ProductStockLocation",
           },
@@ -220,18 +224,19 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
           name: "productId",
           in: "path",
           required: true,
-          description: "Product UUID",
+          description: "Product UUID.",
           schema: {
             type: "string",
             format: "uuid",
           },
           example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
         },
+
         {
           name: "location",
           in: "path",
           required: true,
-          description: "Stock location",
+          description: "Stock location.",
           schema: {
             $ref: "#/components/schemas/ProductStockLocation",
           },
