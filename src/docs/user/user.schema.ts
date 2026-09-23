@@ -42,6 +42,7 @@ export const userSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         minLength: 8,
         example: "password123",
       },
+      role: { type: "string", example: "cashier" },
     },
   },
 
