@@ -11,9 +11,9 @@ create table public.users (
   id uuid primary key references auth.users(id) on delete cascade,
   name text not null,
   email text not null,
-  role public.user_role not null default 'customer',
+  role public.user_role not null default 'user',
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz default now()
 );
 
 create or replace function public.create_user_profile()
@@ -26,7 +26,8 @@ begin
   insert into public.users (
     id,
     name,
-    email
+    email,
+    role
   )
   values (
     new.id,
@@ -34,9 +35,12 @@ begin
       new.raw_user_meta_data->>'name',
       split_part(coalesce(new.email, ''), '@', 1)
     ),
-    new.email
+    new.email,
+    coalesce(
+      new.raw_user_meta_data->>'role',
+      'user'
+    )::public.user_role
   );
-
   return new;
 end;
 $$;
