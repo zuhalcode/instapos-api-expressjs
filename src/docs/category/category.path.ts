@@ -5,32 +5,27 @@ import {
   validationErrorResponseSchema,
 } from "../common.schema";
 
-const tags = ["PRODUCT_STOCK"];
+const tags = ["CATEGORIES"];
 
-export const productStockPaths: OpenAPIV3.PathsObject = {
-  "/api/product-stocks": {
+export const categoryPaths: OpenAPIV3.PathsObject = {
+  "/api/categories": {
     get: {
       tags,
-      summary: "Get all product stocks",
-      description:
-        "Retrieve all product stocks with their associated product information.",
+      summary: "Get all categories",
+      description: "Retrieve all product categories.",
       security: [{ bearerAuth: [] }],
 
       responses: {
         200: {
-          description: "Product stocks retrieved successfully",
+          description: "Categories retrieved successfully",
           content: {
             "application/json": {
-              schema: responseSchema(
-                200,
-                "Product stocks retrieved successfully",
-                {
-                  type: "array",
-                  items: {
-                    $ref: "#/components/schemas/ProductStockResponse",
-                  },
+              schema: responseSchema(200, "Categories retrieved successfully", {
+                type: "array",
+                items: {
+                  $ref: "#/components/schemas/Category",
                 },
-              ),
+              }),
             },
           },
         },
@@ -57,8 +52,8 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
 
     post: {
       tags,
-      summary: "Create product stock",
-      description: "Create stock for a product at a specific location.",
+      summary: "Create category",
+      description: "Create a new product category.",
       security: [{ bearerAuth: [] }],
 
       requestBody: {
@@ -66,7 +61,7 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/CreateProductStockRequest",
+              $ref: "#/components/schemas/CreateCategoryRequest",
             },
           },
         },
@@ -74,16 +69,12 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
 
       responses: {
         201: {
-          description: "Product stock created successfully",
+          description: "Category created successfully",
           content: {
             "application/json": {
-              schema: responseSchema(
-                201,
-                "Product stock created successfully",
-                {
-                  $ref: "#/components/schemas/ProductStock",
-                },
-              ),
+              schema: responseSchema(201, "Category created successfully", {
+                $ref: "#/components/schemas/Category",
+              }),
             },
           },
         },
@@ -115,20 +106,11 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
           },
         },
 
-        404: {
-          description: "Product not found",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(404, "Product not found"),
-            },
-          },
-        },
-
         409: {
-          description: "Product stock already exists",
+          description: "Category already exists",
           content: {
             "application/json": {
-              schema: errorResponseSchema(409, "Product stock already exists"),
+              schema: errorResponseSchema(409, "Category already exists"),
             },
           },
         },
@@ -136,50 +118,35 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
     },
   },
 
-  "/api/product-stocks/{productId}/{location}": {
+  "/api/categories/{id}": {
     get: {
       tags,
-      summary: "Get product stock",
-      description: "Retrieve stock for a product at a specific location.",
+      summary: "Get category",
+      description: "Retrieve a product category by ID.",
       security: [{ bearerAuth: [] }],
 
       parameters: [
         {
-          name: "productId",
+          name: "id",
           in: "path",
           required: true,
-          description: "Product UUID.",
+          description: "Category UUID.",
           schema: {
             type: "string",
             format: "uuid",
           },
           example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
         },
-
-        {
-          name: "location",
-          in: "path",
-          required: true,
-          description: "Stock location.",
-          schema: {
-            $ref: "#/components/schemas/ProductStockLocation",
-          },
-          example: "warehouse",
-        },
       ],
 
       responses: {
         200: {
-          description: "Product stock retrieved successfully",
+          description: "Category retrieved successfully",
           content: {
             "application/json": {
-              schema: responseSchema(
-                200,
-                "Product stock retrieved successfully",
-                {
-                  $ref: "#/components/schemas/ProductStock",
-                },
-              ),
+              schema: responseSchema(200, "Category retrieved successfully", {
+                $ref: "#/components/schemas/Category",
+              }),
             },
           },
         },
@@ -203,10 +170,10 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
         },
 
         404: {
-          description: "Product stock not found",
+          description: "Category not found",
           content: {
             "application/json": {
-              schema: errorResponseSchema(404, "Product stock not found"),
+              schema: errorResponseSchema(404, "Category not found"),
             },
           },
         },
@@ -215,32 +182,21 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
 
     patch: {
       tags,
-      summary: "Update product stock",
-      description: "Update the quantity of a product at a specific location.",
+      summary: "Update category",
+      description: "Update an existing product category.",
       security: [{ bearerAuth: [] }],
 
       parameters: [
         {
-          name: "productId",
+          name: "id",
           in: "path",
           required: true,
-          description: "Product UUID.",
+          description: "Category UUID.",
           schema: {
             type: "string",
             format: "uuid",
           },
           example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
-        },
-
-        {
-          name: "location",
-          in: "path",
-          required: true,
-          description: "Stock location.",
-          schema: {
-            $ref: "#/components/schemas/ProductStockLocation",
-          },
-          example: "warehouse",
         },
       ],
 
@@ -249,7 +205,7 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/UpdateProductStockRequest",
+              $ref: "#/components/schemas/UpdateCategoryRequest",
             },
           },
         },
@@ -257,16 +213,12 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
 
       responses: {
         200: {
-          description: "Product stock updated successfully",
+          description: "Category updated successfully",
           content: {
             "application/json": {
-              schema: responseSchema(
-                200,
-                "Product stock updated successfully",
-                {
-                  $ref: "#/components/schemas/ProductStock",
-                },
-              ),
+              schema: responseSchema(200, "Category updated successfully", {
+                $ref: "#/components/schemas/Category",
+              }),
             },
           },
         },
@@ -299,10 +251,82 @@ export const productStockPaths: OpenAPIV3.PathsObject = {
         },
 
         404: {
-          description: "Product stock not found",
+          description: "Category not found",
           content: {
             "application/json": {
-              schema: errorResponseSchema(404, "Product stock not found"),
+              schema: errorResponseSchema(404, "Category not found"),
+            },
+          },
+        },
+
+        409: {
+          description: "Category already exists",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(409, "Category already exists"),
+            },
+          },
+        },
+      },
+    },
+
+    delete: {
+      tags,
+      summary: "Delete category",
+      description: "Delete a product category by ID.",
+      security: [{ bearerAuth: [] }],
+
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "Category UUID.",
+          schema: {
+            type: "string",
+            format: "uuid",
+          },
+          example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
+        },
+      ],
+
+      responses: {
+        204: {
+          description: "Category deleted successfully",
+        },
+
+        400: {
+          description: "Invalid request",
+          content: {
+            "application/json": {
+              schema: validationErrorResponseSchema(),
+            },
+          },
+        },
+
+        401: {
+          description: "Unauthorized",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(401, "Unauthorized"),
+            },
+          },
+        },
+
+        403: {
+          description: "Insufficient privileges",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(403, "Insufficient privileges"),
+            },
+          },
+        },
+
+        404: {
+          description: "Category not found",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(404, "Category not found"),
             },
           },
         },
