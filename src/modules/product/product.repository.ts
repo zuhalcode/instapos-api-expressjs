@@ -26,10 +26,11 @@ export default {
   },
 
   async create(payload: ProductInsert): Promise<ProductRow> {
-    const { data, error } = await supabase.rpc("create_product", {
-      p_name: payload.name,
-      p_price: payload.price,
-    });
+    const { data, error } = await supabase
+      .from(table)
+      .insert(payload)
+      .select("*")
+      .single();
 
     if (error) throw error;
 

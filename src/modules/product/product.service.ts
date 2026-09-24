@@ -16,9 +16,9 @@ export default {
 
   async create(dto: CreateProductDTO): Promise<ProductRow> {
     const payload: ProductInsert = {
+      category_id: dto.category_id,
       name: dto.name,
       price: dto.price,
-      updated_at: new Date().toISOString(),
     };
 
     return productRepository.create(payload);

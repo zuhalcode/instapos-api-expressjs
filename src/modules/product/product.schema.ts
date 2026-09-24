@@ -6,12 +6,14 @@ export const productIdSchema = z.object({
 
 export const createProductSchema = z.object({
   name: z.string().min(1),
+  category_id: z.string().uuid(),
   price: z.number().nonnegative(),
 });
 
 export const updateProductSchema = z.object({
   name: z.string().min(1),
-  role: z.enum(["superuser", "owner", "supervisor", "cashier"]),
+  category_id: z.string().uuid(),
+  price: z.number().nonnegative(),
 });
 
 type CreateProductDTO = z.infer<typeof createProductSchema>;
