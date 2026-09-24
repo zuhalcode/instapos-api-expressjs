@@ -7,7 +7,6 @@ import saleService from "./payment.service";
 import {
   createPaymentSchema,
   paymentIdSchema,
-  saleIdSchema,
   updatePaymentSchema,
 } from "./payment.schema";
 
