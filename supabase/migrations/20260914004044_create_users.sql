@@ -16,33 +16,31 @@ create table public.users (
   updated_at timestamptz default now()
 );
 
-create or replace function public.create_user_profile()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  insert into public.users (
-    id,
-    name,
-    email,
-    role
-  )
-  values (
-    new.id,
-    coalesce(
-      new.raw_user_meta_data->>'name',
-      split_part(coalesce(new.email, ''), '@', 1)
-    ),
-    new.email,
-    coalesce(
-      new.raw_user_meta_data->>'role',
-      'user'
-    )::public.user_role
-  );
-  return new;
-end;
+CREATE OR REPLACE FUNCTION public.create_user_profile()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    INSERT INTO public.users (
+        id,
+        name,
+        email,
+        role
+    )
+    VALUES (
+        NEW.id,
+        COALESCE(
+            NEW.raw_user_meta_data->>'name',
+            split_part(COALESCE(NEW.email, ''), '@', 1)
+        ),
+        NEW.email,
+        'user'::public.user_role
+    );
+
+    RETURN NEW;
+END;
 $$;
 
 create trigger on_auth_user_created
