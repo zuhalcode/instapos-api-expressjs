@@ -11,8 +11,8 @@
     "db:stop": "npx supabase stop",
     "db:reset": "npx supabase db reset --linked",
     "db:push": "npx supabase db push",
-    "seed:auth": "tsx scripts/seed-auth.ts",
-    "seed:data": "tsx scripts/seed-data.ts",
+    "seed:auth": "tsx src/scripts/seed-auth.ts",
+    "seed:data": "tsx src/scripts/seed-data.ts",
     "seed": "npm run db:reset && npm run seed:auth && npm run seed:data"
   },
   "keywords": [],
