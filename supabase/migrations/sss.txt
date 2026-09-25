@@ -1,0 +1,33 @@
+-- =========================================================
+-- INDEXES
+-- =========================================================
+
+CREATE INDEX idx_products_category_id
+  ON products(category_id);
+
+CREATE INDEX idx_purchase_orders_supplier_id
+  ON purchase_orders(supplier_id);
+
+CREATE INDEX idx_purchase_order_items_purchase_order_id
+  ON purchase_order_items(purchase_order_id);
+
+CREATE INDEX idx_purchase_order_items_product_id
+  ON purchase_order_items(product_id);
+
+CREATE INDEX idx_sales_cashier_id
+  ON sales(cashier_id);
+
+CREATE INDEX idx_sales_customer_id
+  ON sales(customer_id);
+
+CREATE INDEX idx_sale_items_sale_id
+  ON sale_items(sale_id);
+
+CREATE INDEX idx_sale_items_product_id
+  ON sale_items(product_id);
+
+CREATE INDEX idx_payments_sale_id
+  ON payments(sale_id);
+
+CREATE INDEX idx_stock_movements_product_id
+  ON stock_movements(product_id);

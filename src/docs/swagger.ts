@@ -43,7 +43,6 @@ export const swaggerDocument: OpenAPIV3.Document = {
     ...productPaths,
     ...categoryPaths,
     ...salePaths,
-    ...saleItemPaths,
     ...paymentPaths,
   },
 
@@ -54,7 +53,6 @@ export const swaggerDocument: OpenAPIV3.Document = {
       ...productSchemas,
       ...categorySchemas,
       ...saleSchemas,
-      ...saleItemSchemas,
       ...paymentSchemas,
     },
 
