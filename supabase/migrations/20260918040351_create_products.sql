@@ -6,11 +6,13 @@ CREATE TABLE public.categories (
 create table public.products (
     id uuid PRIMARY KEY DEFAULT (gen_random_uuid ()),
     category_id uuid NOT NULL,
+    barcode varchar(50) UNIQUE,
     name varchar NOT NULL,
-    price numeric(15, 2) NOT NULL DEFAULT 0,
+    purchase_price numeric(15, 2) NOT NULL DEFAULT 0 CHECK (purchase_price >= 0),
+    price numeric(15, 2) NOT NULL DEFAULT 0 CHECK (price >= 0),
+    stock integer NOT NULL DEFAULT 0 CHECK (stock >= 0),
+    min_stock integer NOT NULL DEFAULT 0 CHECK (min_stock >= 0),
     is_active boolean NOT NULL DEFAULT true,
-    stock integer NOT NULL DEFAULT 0,
     created_at timestamptz NOT NULL DEFAULT (now ()),
     updated_at timestamptz
 );
-
