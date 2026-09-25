@@ -21,28 +21,28 @@ router.post("/auth/logout", isAuthenticated, authController.logout);
 router.get(
   "/users",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   userController.findAll,
 );
 
 router.get(
   "/users/:id",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   userController.findOne,
 );
 
 router.post(
   "/users",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   userController.createAuthUser,
 );
 
 router.patch(
   "/users/:id",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   userController.update,
 );
 
@@ -50,14 +50,14 @@ router.patch(
 router.get(
   "/categories",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   categoryController.findAll,
 );
 
 router.post(
   "/categories",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   categoryController.create,
 );
 
@@ -65,21 +65,21 @@ router.post(
 router.get(
   "/products",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   productController.findAll,
 );
 
 router.post(
   "/products",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   productController.create,
 );
 
 router.patch(
   "/products/:id",
   isAuthenticated,
-  authorize("superuser"),
+  authorize("superuser", "cashier"),
   productController.update,
 );
 
