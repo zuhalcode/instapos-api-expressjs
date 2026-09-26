@@ -12,6 +12,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       "is_active",
       "created_at",
       "updated_at",
+      "category",
     ],
     properties: {
       id: {
@@ -53,6 +54,15 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         format: "date-time",
         nullable: true,
         example: "2026-09-22T07:00:00.000Z",
+      },
+      category: {
+        type: "object",
+        required: ["name"],
+        properties: {
+          name: {
+            type: "string",
+          },
+        },
       },
     },
   },
