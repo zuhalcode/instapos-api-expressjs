@@ -8,6 +8,7 @@ import { authorize } from "./middlewares/authorize";
 import { productController } from "./modules/product";
 import { categoryController } from "./modules/category";
 import { ROLES } from "./shared";
+import { supplierController } from "./modules/supplier";
 
 //#endregion
 
@@ -91,6 +92,38 @@ router.patch(
   isAuthenticated,
   authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   productController.update,
+);
+
+//#endregion
+
+//#region-suppliers
+
+router.get(
+  "/suppliers",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  supplierController.findAll,
+);
+
+router.get(
+  "/suppliers/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  supplierController.findOne,
+);
+
+router.post(
+  "/suppliers",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  supplierController.create,
+);
+
+router.patch(
+  "/suppliers/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  supplierController.update,
 );
 
 //#endregion
