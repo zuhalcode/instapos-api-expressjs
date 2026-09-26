@@ -7,13 +7,9 @@
     "build": "tsc",
     "start": "node dist/dev.js",
     "docs": "ts-node src/docs/swagger.ts",
-    "db:start": "npx supabase start",
-    "db:stop": "npx supabase stop",
     "db:reset": "npx supabase db reset --linked",
-    "db:push": "npx supabase db push",
-    "seed:auth": "tsx src/scripts/seed-auth.ts",
-    "seed:data": "tsx src/scripts/seed-data.ts",
-    "seed": "npm run db:reset && npm run seed:auth && npm run seed:data"
+    "seed:data": "tsx src/scripts/index.ts",
+    "seed": "npm run db:reset && npm run seed:data"
   },
   "keywords": [],
   "author": "",
