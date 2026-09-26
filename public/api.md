@@ -1,7 +1,7 @@
 # USER API
 
-| Endpoint     | Authorize   | Method   |
-| ------------ | ----------- | -------- |
+| ENDPOINT     | AUTHORIZE   | METHOD   | NOTE |
+| ------------ | ----------- | -------- | ---- |
 | `/users`     | `superuser` | `GET`    |
 | `/users/:id` | `owner`     | `GET`    |
 | `/users`     | `owner`     | `POST`   |

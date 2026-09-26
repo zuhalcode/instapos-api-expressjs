@@ -32,6 +32,7 @@ app.get("/", (_, res) => {
   });
 });
 
+app.use(express.static("public"));
 app.use("/api", apiRouter);
 
 export default app;
