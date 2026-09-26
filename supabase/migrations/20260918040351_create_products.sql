@@ -7,7 +7,7 @@ CREATE TABLE public.categories (
 
 create table public.products (
     id uuid PRIMARY KEY DEFAULT (gen_random_uuid ()),
-    category_id uuid NOT NULL,
+    category_id uuid NOT NULL REFERENCES public.categories(id),
     barcode varchar(50) UNIQUE,
     name varchar NOT NULL,
     purchase_price numeric(15, 2) NOT NULL DEFAULT 0 
