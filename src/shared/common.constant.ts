@@ -11,6 +11,7 @@ export const TABLES = {
   USERS: "users",
   CATEGORIES: "categories",
   PRODUCTS: "products",
+  SUPPLIERS: "suppliers",
   SALES: "sales",
   SALE_ITEMS: "sale_items",
   PAYMENTS: "payments",
