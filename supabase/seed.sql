@@ -16,33 +16,33 @@ INSERT INTO
 VALUES
     (
         'SUP001',
-        'PT Sumber Makmur',
+        'pt sumber makmur',
         '081234567890',
-        'Jl. Raya Darmo No. 15, Surabaya'
+        'jl. raya darmo no. 15, surabaya'
     ),
     (
         'SUP002',
-        'CV Berkah Jaya',
+        'cv berkah jaya',
         '081298765432',
-        'Jl. Ahmad Yani No. 88, Surabaya'
+        'jl. ahmad yani no. 88, surabaya'
     ),
     (
         'SUP003',
-        'PT Mitra Niaga Indonesia',
+        'pt mitra niaga indonesia',
         '082112345678',
-        'Jl. Rungkut Industri No. 21, Surabaya'
+        'jl. rungkut industri no. 21, surabaya'
     ),
     (
         'SUP004',
-        'CV Sentosa Abadi',
+        'cv sentosa abadi',
         '082198765432',
-        'Jl. Kedungdoro No. 45, Surabaya'
+        'jl. kedungdoro no. 45, surabaya'
     ),
     (
         'SUP005',
-        'PT Sinar Terang Distribusi',
+        'pt sinar terang distribusi',
         '083812345678',
-        'Jl. Margomulyo No. 30, Surabaya'
+        'jl. margomulyo no. 30, surabaya'
     );
 
 -- ============================================
@@ -51,8 +51,8 @@ VALUES
 INSERT INTO
     public.customers (code_member, name, phone_number, point)
 VALUES
-    ('MEM001', 'Budi Santoso', '081234567801', 120),
-    ('MEM002', 'Siti Aminah', '081234567802', 75),
-    ('MEM003', 'Andi Pratama', '081234567803', 250),
-    ('MEM004', 'Dewi Lestari', '081234567804', 50),
-    ('MEM005', 'Rizky Maulana', '081234567805', 180);
+    ('MEM001', 'budi santoso', '081234567801', 120),
+    ('MEM002', 'siti aminah', '081234567802', 75),
+    ('MEM003', 'andi pratama', '081234567803', 250),
+    ('MEM004', 'dewi lestari', '081234567804', 50),
+    ('MEM005', 'rizky maulana', '081234567805', 180);
