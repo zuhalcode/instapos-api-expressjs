@@ -9,6 +9,7 @@ import { productController } from "./modules/product";
 import { categoryController } from "./modules/category";
 import { ROLES } from "./shared";
 import { supplierController } from "./modules/supplier";
+import { purchaseOrderController } from "./modules/purchase-order";
 
 //#endregion
 
@@ -124,6 +125,38 @@ router.patch(
   isAuthenticated,
   authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   supplierController.update,
+);
+
+//#endregion
+
+//#region-purchase-orders
+
+router.get(
+  "/purchase-orders",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.findAll,
+);
+
+router.get(
+  "/purchase-orders/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.findOne,
+);
+
+router.post(
+  "/purchase-orders",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.create,
+);
+
+router.patch(
+  "/purchase-orders/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.update,
 );
 
 //#endregion
