@@ -1,23 +1,34 @@
-# USER API
+# API Documentation
 
-| ENDPOINT     | AUTHORIZE   | METHOD   | NOTE |
-| ------------ | ----------- | -------- | ---- |
-| `/users`     | `superuser` | `GET`    |
-| `/users/:id` | `owner`     | `GET`    |
-| `/users`     | `owner`     | `POST`   |
-| `/users/:id` | `owner`     | `PUT`    |
-| `/users/:id` | `owner`     | `DELETE` |
+- [Users](#users)
+- [Categories](#categories)
+- [Products](#products)
 
-# CATEGORY API
+---
 
-| Endpoint     | Authorize        | Method   |
-| ------------ | ---------------- | -------- |
-| `/users`     | `owner`, `admin` | `GET`    |
-| `/users/:id` | `owner`, `admin` | `GET`    |
-| `/users`     | `owner`, `admin` | `POST`   |
-| `/users/:id` | `owner`, `admin` | `PUT`    |
-| `/users/:id` | `owner`, `admin` | `DELETE` |
+## Users
 
-## Status
+| ENDPOINT     | METHOD | AUTHORIZE   | NOTE           |
+| ------------ | ------ | ----------- | -------------- |
+| `/users`     | GET    | `SUPERUSER` | Get all users  |
+| `/users/:id` | GET    | `SUPERUSER` | Get user by ID |
+| `/users`     | POST   | `SUPERUSER` | Create user    |
+| `/users/:id` | PATCH  | `SUPERUSER` | Update user    |
 
-- Users CRUD
+---
+
+## Categories
+
+| ENDPOINT          | METHOD | AUTHORIZE                 | NOTE               |
+| ----------------- | ------ | ------------------------- | ------------------ |
+| `/categories`     | GET    | `SUPERUSER`, `CASHIER`    | Get all categories |
+| `/categories`     | POST   | `SUPERUSER`, `SUPERVISOR` | Create category    |
+| `/categories/:id` | PATCH  | `SUPERUSER`, `SUPERVISOR` | Update category    |
+
+---
+
+## Products
+
+| ENDPOINT | METHOD | AUTHORIZE | NOTE |
+| -------- | ------ | --------- | ---- |
+| —        | —      | —         | —    |
