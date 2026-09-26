@@ -66,21 +66,24 @@ router.post(
 );
 
 router.patch(
-  "/categories",
+  "/categories/:id",
   isAuthenticated,
   authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
-  categoryController.create,
+  categoryController.update,
 );
 
 //#endregion
 
-// PRODUCTS
+//#region-products
+
 router.get(
   "/products",
   isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
   productController.findAll,
 );
+
+router.get("/products/:id", isAuthenticated, productController.findOne);
 
 router.post(
   "/products",
@@ -92,9 +95,11 @@ router.post(
 router.patch(
   "/products/:id",
   isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   productController.update,
 );
+
+//#endregion
 
 // TRASH
 // router.get("/trash", isAuthenticated, trashController.findAll);

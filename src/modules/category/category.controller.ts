@@ -51,7 +51,7 @@ export default {
     try {
       const { id } = idSchema.parse(req.params);
       const dto = updateCategorySchema.parse(req.body);
-      const message: string = "User updated successfully";
+      const message: string = "Category updated successfully";
 
       const category = await categoryService.update(id, dto);
 
