@@ -10,8 +10,6 @@ import { categorySchemas } from "./category/category.schema";
 import { categoryPaths } from "./category/category.path";
 import { salePaths } from "./sales/sale.path";
 import { saleSchemas } from "./sales/sale.schema";
-import { saleItemPaths } from "./sale_item/sale-item.path";
-import { saleItemSchemas } from "./sale_item/sale-item.schema";
 import { paymentPaths } from "./payment/payment.path";
 import { paymentSchemas } from "./payment/payment.schema";
 
@@ -40,20 +38,20 @@ export const swaggerDocument: OpenAPIV3.Document = {
   paths: {
     ...authPaths,
     ...userPaths,
-    ...productPaths,
     ...categoryPaths,
+    ...productPaths,
     ...salePaths,
-    ...paymentPaths,
+    // ...paymentPaths,
   },
 
   components: {
     schemas: {
       ...authSchemas,
       ...userSchemas,
-      ...productSchemas,
       ...categorySchemas,
+      ...productSchemas,
       ...saleSchemas,
-      ...paymentSchemas,
+      // ...paymentSchemas,
     },
 
     securitySchemes: {
