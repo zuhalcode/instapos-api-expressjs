@@ -14,9 +14,9 @@ export default {
   async findAll(_: IReqUser, res: Response): Promise<void> {
     try {
       const message: string = "Data Retrieved Successfully";
-      const users = await userService.findAll();
+      const products = await productService.findAll();
 
-      return response.success(res, users, message);
+      return response.success(res, products, message);
     } catch (error) {
       return response.error(res, error);
     }
@@ -27,9 +27,9 @@ export default {
       const { id } = idSchema.parse(req.params);
       const message: string = "Data Retrieved Successfully";
 
-      const user = await userService.findOne(id);
+      const product = await productService.findOne(id);
 
-      return response.success(res, user, message);
+      return response.success(res, product, message);
     } catch (error) {
       return response.error(res, error);
     }
@@ -40,9 +40,9 @@ export default {
       const dto = createProductSchema.parse(req.body);
       const message: string = "Product created successfully";
 
-      const user = await productService.create(dto);
+      const product = await productService.create(dto);
 
-      return response.success(res, user, message, 201);
+      return response.success(res, product, message, 201);
     } catch (error) {
       return response.error(res, error);
     }
@@ -52,11 +52,11 @@ export default {
     try {
       const { id } = idSchema.parse(req.params);
       const dto = updateProductSchema.parse(req.body);
-      const message: string = "User updated successfully";
+      const message: string = "Product updated successfully";
 
-      const user = await userService.update(id, dto);
+      const product = await productService.update(id, dto);
 
-      return response.success(res, user, message, 201);
+      return response.success(res, product, message, 201);
     } catch (error) {
       return response.error(res, error);
     }

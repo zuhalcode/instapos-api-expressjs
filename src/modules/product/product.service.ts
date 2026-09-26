@@ -3,6 +3,7 @@
 import productRepository from "./product.repository";
 import { CreateProductDTO, UpdateProductDTO } from "./product.schema";
 import { ProductInsert, ProductRow } from "./product.types";
+
 //#endregion
 
 export default {
@@ -19,6 +20,7 @@ export default {
       category_id: dto.category_id,
       name: dto.name,
       price: dto.price,
+      barcode: dto.barcode,
     };
 
     return productRepository.create(payload);
