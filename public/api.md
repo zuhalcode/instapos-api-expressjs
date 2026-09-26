@@ -29,9 +29,9 @@
 
 ## Products
 
-| ENDPOINT        | METHOD | AUTHORIZE                          | NOTE              |
-| --------------- | ------ | ---------------------------------- | ----------------- |
-| `/products`     | GET    | `SUPERUSER` `SUPERVISOR` `CASHIER` | Get all products  |
-| `/products/:id` | GET    | `SUPERUSER` `SUPERVISOR` `CASHIER` | Get product by ID |
-| `/products`     | POST   | `SUPERUSER` `SUPERVISOR`           | Create product    |
-| `/products/:id` | PATCH  | `SUPERUSER` `SUPERVISOR`           | Update product    |
+| ENDPOINT        | METHOD | AUTHORIZE                | NOTE              |
+| --------------- | ------ | ------------------------ | ----------------- |
+| `/products`     | GET    | `*`                      | Get all products  |
+| `/products/:id` | GET    | `*`                      | Get product by ID |
+| `/products`     | POST   | `SUPERUSER` `SUPERVISOR` | Create product    |
+| `/products/:id` | PATCH  | `SUPERUSER` `SUPERVISOR` | Update product    |

@@ -76,13 +76,7 @@ router.patch(
 
 //#region-products
 
-router.get(
-  "/products",
-  isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
-  productController.findAll,
-);
-
+router.get("/products", isAuthenticated, productController.findAll);
 router.get("/products/:id", isAuthenticated, productController.findOne);
 
 router.post(
