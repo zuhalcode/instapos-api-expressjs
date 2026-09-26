@@ -61,6 +61,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         properties: {
           name: {
             type: "string",
+            example: "makanan",
           },
         },
       },
