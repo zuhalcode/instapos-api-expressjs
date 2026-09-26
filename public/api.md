@@ -3,6 +3,7 @@
 - [Users](#users)
 - [Categories](#categories)
 - [Products](#products)
+- [Suppliers](#suppliers)
 
 ---
 
@@ -35,3 +36,16 @@
 | `/products/:id` | GET    | `*`                      | Get product by ID |
 | `/products`     | POST   | `SUPERUSER` `SUPERVISOR` | Create product    |
 | `/products/:id` | PATCH  | `SUPERUSER` `SUPERVISOR` | Update product    |
+
+---
+
+## Suppliers
+
+| ENDPOINT         | METHOD | AUTHORIZE                | NOTE               |
+| ---------------- | ------ | ------------------------ | ------------------ |
+| `/suppliers`     | GET    | `SUPERUSER` `SUPERVISOR` | Get all suppliers  |
+| `/suppliers/:id` | GET    | `SUPERUSER` `SUPERVISOR` | Get supplier by ID |
+| `/suppliers`     | POST   | `SUPERUSER` `SUPERVISOR` | Create supplier    |
+| `/suppliers/:id` | PATCH  | `SUPERUSER` `SUPERVISOR` | Update supplier    |
+
+---
