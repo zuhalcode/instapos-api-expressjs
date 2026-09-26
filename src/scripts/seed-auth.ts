@@ -16,8 +16,34 @@ const users = [
   { email: "cashier@gmail.com", name: "cashier" },
 ];
 
-async function main() {
-  // Create Auth users
+const roles = [
+  {
+    role: "superuser",
+    emails: ["zuhal@gmail.com", "bahri@gmail.com"],
+  },
+  {
+    role: "user",
+    emails: ["user@gmail.com"],
+  },
+  {
+    role: "customer",
+    emails: ["customer@gmail.com"],
+  },
+  {
+    role: "owner",
+    emails: ["owner@gmail.com"],
+  },
+  {
+    role: "supervisor",
+    emails: ["supervisor@gmail.com"],
+  },
+  {
+    role: "cashier",
+    emails: ["cashier@gmail.com"],
+  },
+];
+
+export async function seedUsers() {
   for (const user of users) {
     const { data, error } = await supabase.auth.admin.createUser({
       email: user.email,
@@ -32,36 +58,8 @@ async function main() {
       throw error;
     }
 
-    console.log(`Created: ${data.user.email}`);
+    console.log(`Created user: ${data.user.email}`);
   }
-
-  // Set application roles
-  const roles = [
-    {
-      role: "superuser",
-      emails: ["zuhal@gmail.com", "bahri@gmail.com"],
-    },
-    {
-      role: "user",
-      emails: ["user@gmail.com"],
-    },
-    {
-      role: "customer",
-      emails: ["customer@gmail.com"],
-    },
-    {
-      role: "owner",
-      emails: ["owner@gmail.com"],
-    },
-    {
-      role: "supervisor",
-      emails: ["supervisor@gmail.com"],
-    },
-    {
-      role: "cashier",
-      emails: ["cashier@gmail.com"],
-    },
-  ];
 
   for (const { role, emails } of roles) {
     const { error } = await supabase
@@ -74,10 +72,5 @@ async function main() {
     }
   }
 
-  console.log("Auth users and roles seeded successfully.");
+  console.log("Users seeded successfully.");
 }
-
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
