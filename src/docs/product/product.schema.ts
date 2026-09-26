@@ -110,6 +110,10 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         nullable: true,
         example: "8992761132104",
       },
+      is_active: {
+        type: "boolean",
+        example: true,
+      },
     },
   },
 };
