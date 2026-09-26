@@ -119,67 +119,6 @@ export const categoryPaths: OpenAPIV3.PathsObject = {
   },
 
   "/api/categories/{id}": {
-    get: {
-      tags,
-      summary: "Get category",
-      description: "Retrieve a product category by ID.",
-      security: [{ bearerAuth: [] }],
-
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          required: true,
-          description: "Category UUID.",
-          schema: {
-            type: "string",
-            format: "uuid",
-          },
-          example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
-        },
-      ],
-
-      responses: {
-        200: {
-          description: "Category retrieved successfully",
-          content: {
-            "application/json": {
-              schema: responseSchema(200, "Category retrieved successfully", {
-                $ref: "#/components/schemas/Category",
-              }),
-            },
-          },
-        },
-
-        400: {
-          description: "Invalid request",
-          content: {
-            "application/json": {
-              schema: validationErrorResponseSchema(),
-            },
-          },
-        },
-
-        401: {
-          description: "Unauthorized",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(401, "Unauthorized"),
-            },
-          },
-        },
-
-        404: {
-          description: "Category not found",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(404, "Category not found"),
-            },
-          },
-        },
-      },
-    },
-
     patch: {
       tags,
       summary: "Update category",
@@ -264,69 +203,6 @@ export const categoryPaths: OpenAPIV3.PathsObject = {
           content: {
             "application/json": {
               schema: errorResponseSchema(409, "Category already exists"),
-            },
-          },
-        },
-      },
-    },
-
-    delete: {
-      tags,
-      summary: "Delete category",
-      description: "Delete a product category by ID.",
-      security: [{ bearerAuth: [] }],
-
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          required: true,
-          description: "Category UUID.",
-          schema: {
-            type: "string",
-            format: "uuid",
-          },
-          example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
-        },
-      ],
-
-      responses: {
-        204: {
-          description: "Category deleted successfully",
-        },
-
-        400: {
-          description: "Invalid request",
-          content: {
-            "application/json": {
-              schema: validationErrorResponseSchema(),
-            },
-          },
-        },
-
-        401: {
-          description: "Unauthorized",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(401, "Unauthorized"),
-            },
-          },
-        },
-
-        403: {
-          description: "Insufficient privileges",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(403, "Insufficient privileges"),
-            },
-          },
-        },
-
-        404: {
-          description: "Category not found",
-          content: {
-            "application/json": {
-              schema: errorResponseSchema(404, "Category not found"),
             },
           },
         },
