@@ -4,9 +4,16 @@ import { ProductInsert, ProductRow, ProductUpdate } from "./product.types";
 
 const table = TABLES.PRODUCTS;
 
+const select = `
+  *,
+  category:categories (
+    name
+  )
+`;
+
 export default {
   async findAll(): Promise<ProductRow[]> {
-    const { data, error } = await supabase.from(table).select("*");
+    const { data, error } = await supabase.from(table).select(select);
 
     if (error) throw error;
 
@@ -16,7 +23,7 @@ export default {
   async findOne(id: string): Promise<ProductRow> {
     const { data, error } = await supabase
       .from(table)
-      .select("*")
+      .select(select)
       .eq("id", id)
       .single();
 
@@ -29,7 +36,7 @@ export default {
     const { data, error } = await supabase
       .from(table)
       .insert(payload)
-      .select("*")
+      .select(select)
       .single();
 
     if (error) throw error;
@@ -42,7 +49,7 @@ export default {
       .from(table)
       .update(payload)
       .eq("id", id)
-      .select("*")
+      .select(select)
       .single();
 
     if (error) throw error;
