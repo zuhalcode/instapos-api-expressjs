@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import apiRouter from "./routes";
 import cookieParser from "cookie-parser";
@@ -32,7 +33,7 @@ app.get("/", (_, res) => {
   });
 });
 
-app.use(express.static("public"));
+app.use(express.static(path.join(process.cwd(), "public")));
 app.use("/api", apiRouter);
 
 export default app;
