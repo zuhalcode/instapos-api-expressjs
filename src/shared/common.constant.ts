@@ -12,6 +12,8 @@ export const TABLES = {
   CATEGORIES: "categories",
   PRODUCTS: "products",
   SUPPLIERS: "suppliers",
+  PURCHASE_ORDERS: "purchase_orders",
+  PURCHASE_ORDER_ITEMS: "purchase_order_items",
   SALES: "sales",
   SALE_ITEMS: "sale_items",
   PAYMENTS: "payments",
