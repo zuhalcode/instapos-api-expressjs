@@ -1,8 +1,8 @@
 //#region-imports
 
 import paymentRepository from "./payment.repository";
-import { CreatePaymentDTO, UpdatePaymentDTO } from "./payment.schema";
-import { PaymentInsert, PaymentRow, PaymentUpdate } from "./payment.types";
+import { CreatePaymentDTO } from "./payment.schema";
+import { PaymentInsert, PaymentRow } from "./payment.types";
 //#endregion
 
 export default {
@@ -19,7 +19,6 @@ export default {
       method: dto.method,
       sale_id: dto.sale_id,
       amount: dto.amount,
-      paid_amount: dto.paid_amount,
     };
 
     return paymentRepository.create(payload);
