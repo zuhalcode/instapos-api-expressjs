@@ -2,31 +2,30 @@
 
 import productRepository from "./supplier.repository";
 import { CreateSupplierDTO, UpdateSupplierDTO } from "./supplier.schema";
-import { ProductInsert, ProductRow } from "./supplier.types";
+import { SupplierInsert, SupplierRow } from "./supplier.types";
 
 //#endregion
 
 export default {
-  async findAll(): Promise<ProductRow[]> {
+  async findAll(): Promise<SupplierRow[]> {
     return productRepository.findAll();
   },
 
-  async findOne(id: string): Promise<ProductRow> {
+  async findOne(id: string): Promise<SupplierRow> {
     return productRepository.findOne(id);
   },
 
-  async create(dto: CreateSupplierDTO): Promise<ProductRow> {
-    const payload: ProductInsert = {
-      category_id: dto.category_id,
+  async create(dto: CreateSupplierDTO): Promise<SupplierRow> {
+    const payload: SupplierInsert = {
       name: dto.name,
-      price: dto.price,
-      barcode: dto.barcode,
+      address: dto.address,
+      phone_number: dto.phone_number,
     };
 
     return productRepository.create(payload);
   },
 
-  async update(id: string, dto: UpdateSupplierDTO): Promise<ProductRow> {
+  async update(id: string, dto: UpdateSupplierDTO): Promise<SupplierRow> {
     return productRepository.update(id, dto);
   },
 };
