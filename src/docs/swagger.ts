@@ -14,6 +14,8 @@ import { paymentPaths } from "./payment/payment.path";
 import { paymentSchemas } from "./payment/payment.schema";
 import { supplierPaths } from "./supplier/supplier.path";
 import { supplierSchemas } from "./supplier/supplier.schema";
+import { purchaseOrderPaths } from "./purchase-orders/purchase-order.path";
+import { purchaseOrderSchemas } from "./purchase-orders/purchase-orders.schema";
 
 const servers: Record<AppEnv, OpenAPIV3.ServerObject> = {
   development: { url: "http://localhost:3001", description: "Development" },
@@ -43,6 +45,7 @@ export const swaggerDocument: OpenAPIV3.Document = {
     ...categoryPaths,
     ...productPaths,
     ...supplierPaths,
+    ...purchaseOrderPaths,
     // ...salePaths,
     // ...paymentPaths,
   },
@@ -54,6 +57,7 @@ export const swaggerDocument: OpenAPIV3.Document = {
       ...categorySchemas,
       ...productSchemas,
       ...supplierSchemas,
+      ...purchaseOrderSchemas,
       // ...saleSchemas,
       // ...paymentSchemas,
     },
