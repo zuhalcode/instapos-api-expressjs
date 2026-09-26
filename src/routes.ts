@@ -1,13 +1,13 @@
 //#region-imports
 
 import express from "express";
-
 import { isAuthenticated } from "./middlewares/auth";
 import { userController } from "./modules/user";
 import { authController } from "./modules/auth";
 import { authorize } from "./middlewares/authorize";
 import { productController } from "./modules/product";
-import { categoryController } from "./modules/categories";
+import { categoryController } from "./modules/category";
+import { ROLES } from "./shared";
 
 //#endregion
 
@@ -17,69 +17,82 @@ const router = express.Router();
 router.post("/auth/login", authController.login);
 router.post("/auth/logout", isAuthenticated, authController.logout);
 
-// USERS [SUPERUSER]
+//#region-users
+
 router.get(
   "/users",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER),
   userController.findAll,
 );
 
 router.get(
   "/users/:id",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER),
   userController.findOne,
 );
 
 router.post(
   "/users",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER),
   userController.createAuthUser,
 );
 
 router.patch(
   "/users/:id",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER),
   userController.update,
 );
 
-// CATEGORIES
+//#endregion
+
+//#region-categories
+
 router.get(
   "/categories",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
   categoryController.findAll,
 );
 
 router.post(
   "/categories",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   categoryController.create,
 );
+
+router.patch(
+  "/categories",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  categoryController.create,
+);
+
+//#endregion
 
 // PRODUCTS
 router.get(
   "/products",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
   productController.findAll,
 );
 
 router.post(
   "/products",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   productController.create,
 );
 
 router.patch(
   "/products/:id",
   isAuthenticated,
-  authorize("superuser", "cashier"),
+  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
   productController.update,
 );
 

@@ -1,5 +1,5 @@
-import { TABLES } from "../../constants/table.constant";
 import { supabase } from "../../libs/supabase";
+import { TABLES } from "../../shared";
 
 const table = TABLES.USERS;
 

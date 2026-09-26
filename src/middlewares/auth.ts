@@ -1,7 +1,7 @@
 import { Response, NextFunction } from "express";
 import { supabase } from "../libs/supabase";
 import { IReqUser } from "../utils/interfaces";
-import { TABLES } from "../constants/table.constant";
+import { TABLES } from "../shared";
 
 export async function isAuthenticated(
   req: IReqUser,
