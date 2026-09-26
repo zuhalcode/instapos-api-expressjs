@@ -1,5 +1,5 @@
-import { TABLES } from "../../constants/table.constant";
 import { supabase } from "../../libs/supabase";
+import { TABLES } from "../../shared";
 import { ProductInsert, ProductRow, ProductUpdate } from "./product.types";
 
 const table = TABLES.PRODUCTS;

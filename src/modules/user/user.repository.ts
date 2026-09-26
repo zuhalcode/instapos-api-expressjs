@@ -1,11 +1,11 @@
 import { User } from "@supabase/supabase-js";
-import { TABLES } from "../../constants/table.constant";
 import { supabase } from "../../libs/supabase";
 import {
   CreateAuthUserPayload,
   UpdateUserPayload,
   UserRow,
 } from "./user.types";
+import { TABLES } from "../../shared";
 
 const table = TABLES.USERS;
 
