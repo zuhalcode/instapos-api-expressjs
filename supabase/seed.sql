@@ -12,38 +12,44 @@ VALUES
 -- SEED: SUPPLIERS
 -- ============================================
 INSERT INTO
-    public.suppliers (code, name, phone_number, address)
+    public.suppliers (name, phone_number, address)
 VALUES
     (
-        'SUP001',
         'pt sumber makmur',
         '081234567890',
         'jl. raya darmo no. 15, surabaya'
     ),
     (
-        'SUP002',
         'cv berkah jaya',
         '081298765432',
         'jl. ahmad yani no. 88, surabaya'
     ),
     (
-        'SUP003',
         'pt mitra niaga indonesia',
         '082112345678',
         'jl. rungkut industri no. 21, surabaya'
     ),
     (
-        'SUP004',
         'cv sentosa abadi',
         '082198765432',
         'jl. kedungdoro no. 45, surabaya'
     ),
     (
-        'SUP005',
         'pt sinar terang distribusi',
         '083812345678',
         'jl. margomulyo no. 30, surabaya'
     );
+
+-- ============================================
+-- SEED: PURCHASE ORDERS
+-- ============================================
+INSERT INTO public.purchase_orders (
+    supplier_id
+)
+SELECT
+    s.id
+FROM public.suppliers AS s
+ORDER BY s.created_at;
 
 -- ============================================
 -- SEED: CUSTOMERS
