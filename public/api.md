@@ -6,6 +6,7 @@
 - [Suppliers](#suppliers)
 - [Purchase Orders](#purchase-orders)
 - [Purchase Order Items](#purchase-order-items)
+- [Sales](#sales)
 
 ---
 
@@ -54,9 +55,22 @@
 
 ## Purchase Orders
 
-| ENDPOINT               | METHOD | AUTHORIZE                | NOTE                                          |
-| ---------------------- | ------ | ------------------------ | --------------------------------------------- |
-| `/purchase-orders`     | `GET`  | `SUPERUSER` `SUPERVISOR` | Get All Purchase Orders                       |
-| `/purchase-orders/:id` | `GET`  | `SUPERUSER` `SUPERVISOR` | Detail Purchase Orders + Purchase Order Items |
+| ENDPOINT                        | METHOD  | AUTHORIZE                | NOTE                                          |
+| ------------------------------- | ------- | ------------------------ | --------------------------------------------- |
+| `/purchase-orders`              | `GET`   | `SUPERUSER` `SUPERVISOR` | Get All Purchase Orders                       |
+| `/purchase-orders/:id`          | `GET`   | `SUPERUSER` `SUPERVISOR` | Detail Purchase Orders + Purchase Order Items |
+| `/purchase-orders`              | `POST`  | `SUPERUSER` `SUPERVISOR` | Create Purchase Orders → `draft`              |
+| `/purchase-orders/:id`          | `PATCH` | `SUPERUSER` `SUPERVISOR` | Update Purchase Orders `draft`                |
+| `/purchase-orders/:id/complete` | `PATCH` | `SUPERUSER` `SUPERVISOR` | Update Purchase Orders `draft` → `completed`  |
+| `/purchase-orders/:id/cancel`   | `PATCH` | `SUPERUSER` `SUPERVISOR` | Update Purchase Orders `draft` → `cancelled`  |
+
+---
+
+## Purchase Order Items
+
+| ENDPOINT                             | METHOD  | AUTHORIZE                | NOTE                         |
+| ------------------------------------ | ------- | ------------------------ | ---------------------------- |
+| `/purchase-orders/:id/items`         | `POST`  | `SUPERUSER` `SUPERVISOR` | Create Purchase Orders Items |
+| `/purchase-orders/:id/items/:itemId` | `PATCH` | `SUPERUSER` `SUPERVISOR` | Update Purchase Orders Items |
 
 ---
