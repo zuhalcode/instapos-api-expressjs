@@ -50,6 +50,33 @@ export default {
     }
   },
 
+  async createItem(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const dto = createPurchaseOrderSchema.parse(req.body);
+      const message: string = "Purchase Item created successfully";
+
+      const supplier = await purchaseOrderService.create(dto);
+
+      return response.success(res, supplier, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  async updateItem(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const { id } = idSchema.parse(req.params);
+      const dto = updatePurchaseOrderSchema.parse(req.body);
+      const message: string = "Purchase Item updated successfully";
+
+      const supplier = await purchaseOrderService.update(id, dto);
+
+      return response.success(res, supplier, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   async update(req: IReqUser, res: Response): Promise<void> {
     try {
       const { id } = idSchema.parse(req.params);

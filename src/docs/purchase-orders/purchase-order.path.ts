@@ -402,7 +402,7 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
       tags,
       summary: "Add item to purchase order",
       description:
-        "Add a product to a draft purchase order. The subtotal is calculated by the database.",
+        "Adds a product to a draft purchase order. The purchase order must exist and have a draft status. The subtotal is calculated automatically by the database.",
       security: [{ bearerAuth: [] }],
       parameters: [purchaseOrderIdParameter],
 
@@ -434,7 +434,7 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
         },
 
         400: {
-          description: "Invalid request",
+          description: "Request validation failed",
           content: {
             "application/json": {
               schema: validationErrorResponseSchema(),
@@ -465,7 +465,7 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
 
         409: {
           description:
-            "Purchase order cannot be modified or product already exists in the purchase order",
+            "Purchase order is not in draft status or the product already exists in the purchase order",
           content: {
             "application/json": {
               schema: errorResponseSchema(
@@ -484,7 +484,7 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
       tags,
       summary: "Update purchase order item",
       description:
-        "Update quantity or unit price of an item in a draft purchase order.",
+        "Updates the quantity or unit price of an item in a draft purchase order. The item must belong to the specified purchase order.",
       security: [{ bearerAuth: [] }],
       parameters: [purchaseOrderIdParameter, purchaseOrderItemIdParameter],
 
@@ -516,7 +516,7 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
         },
 
         400: {
-          description: "Invalid request",
+          description: "Request validation failed",
           content: {
             "application/json": {
               schema: validationErrorResponseSchema(),
@@ -543,12 +543,12 @@ export const purchaseOrderPaths: OpenAPIV3.PathsObject = {
         },
 
         409: {
-          description: "Purchase order cannot be modified",
+          description: "Purchase order is not in draft status",
           content: {
             "application/json": {
               schema: errorResponseSchema(
                 409,
-                "Purchase order cannot be modified",
+                "Purchase order cannot be modified because it is not in draft status",
               ),
             },
           },

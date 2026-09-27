@@ -152,6 +152,20 @@ router.post(
   purchaseOrderController.create,
 );
 
+router.post(
+  "/purchase-orders/:id/items",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.create,
+);
+
+router.patch(
+  "/purchase-orders/:id/items/:itemId",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.update,
+);
+
 router.patch(
   "/purchase-orders/:id",
   isAuthenticated,
