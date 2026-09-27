@@ -1,8 +1,8 @@
 //#region-imports
 
 import saleRepository from "./sale.repository";
-import { CreateSaleDTO, UpdateSaleDTO } from "./sale.schema";
-import { SaleInsert, SaleRow } from "./sale.types";
+import { CreateSaleDTO } from "./sale.schema";
+import { CreateSalePayload, SaleInsert, SaleRow } from "./sale.types";
 //#endregion
 
 export default {
@@ -15,16 +15,14 @@ export default {
   },
 
   async create(userId: string, dto: CreateSaleDTO): Promise<SaleRow> {
-    const payload: SaleInsert = {
+    const payload: CreateSalePayload = {
       cashier_id: userId,
-      invoice_number: dto.invoice_number,
-      total: dto.total,
+      ...(dto.customer_id ? { customer_id: dto.customer_id } : {}),
+      discount: dto.discount,
+      items: dto.items,
+      payments: dto.payments,
     };
 
     return saleRepository.create(payload);
-  },
-
-  async update(id: string, dto: UpdateSaleDTO): Promise<SaleRow> {
-    return saleRepository.update(id, dto);
   },
 };

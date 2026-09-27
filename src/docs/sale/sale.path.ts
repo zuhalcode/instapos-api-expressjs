@@ -12,7 +12,7 @@ export const salePaths: OpenAPIV3.PathsObject = {
     get: {
       tags,
       summary: "Get all sales",
-      description: "Retrieve all sales with their sale items.",
+      description: "Retrieve all sales with their sale items and payments.",
       security: [{ bearerAuth: [] }],
 
       responses: {
@@ -53,7 +53,8 @@ export const salePaths: OpenAPIV3.PathsObject = {
     post: {
       tags,
       summary: "Create sale",
-      description: "Create a new sale transaction.",
+      description:
+        "Create a completed sale transaction. Invoice number, prices, subtotal, total, cashier, and status are generated or calculated by the server.",
       security: [{ bearerAuth: [] }],
 
       requestBody: {
@@ -62,6 +63,22 @@ export const salePaths: OpenAPIV3.PathsObject = {
           "application/json": {
             schema: {
               $ref: "#/components/schemas/CreateSaleRequest",
+            },
+            example: {
+              customer_id: "550e8400-e29b-41d4-a716-446655440000",
+              discount: 5000,
+              items: [
+                {
+                  product_id: "5b8f3c21-7a6e-4d91-b2f8-8c3e1a456789",
+                  quantity: 2,
+                },
+              ],
+              payments: [
+                {
+                  method: "cash",
+                  amount: 100000,
+                },
+              ],
             },
           },
         },
@@ -107,19 +124,22 @@ export const salePaths: OpenAPIV3.PathsObject = {
         },
 
         404: {
-          description: "Product not found",
+          description: "Product or customer not found",
           content: {
             "application/json": {
-              schema: errorResponseSchema(404, "Product not found"),
+              schema: errorResponseSchema(404, "Product or customer not found"),
             },
           },
         },
 
         409: {
-          description: "Insufficient stock",
+          description: "Insufficient stock or payment conflict",
           content: {
             "application/json": {
-              schema: errorResponseSchema(409, "Insufficient stock"),
+              schema: errorResponseSchema(
+                409,
+                "Insufficient stock or payment conflict",
+              ),
             },
           },
         },
@@ -131,7 +151,7 @@ export const salePaths: OpenAPIV3.PathsObject = {
     get: {
       tags,
       summary: "Get sale",
-      description: "Retrieve a sale by ID with its sale items.",
+      description: "Retrieve a sale by ID with its sale items and payments.",
       security: [{ bearerAuth: [] }],
 
       parameters: [

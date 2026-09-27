@@ -1,6 +1,12 @@
 import { supabase } from "../../libs/supabase";
 import { TABLES } from "../../shared";
-import { SaleInsert, SaleRow, SaleUpdate } from "./sale.types";
+import { CreateSaleDTO } from "./sale.schema";
+import {
+  CreateSalePayload,
+  SaleInsert,
+  SaleRow,
+  SaleUpdate,
+} from "./sale.types";
 
 const table = TABLES.SALES;
 
@@ -25,25 +31,14 @@ export default {
     return data;
   },
 
-  async create(payload: SaleInsert): Promise<SaleRow> {
-    const { data, error } = await supabase
-      .from(table)
-      .insert(payload)
-      .select("*")
-      .single();
-
-    if (error) throw error;
-
-    return data;
-  },
-
-  async update(id: string, payload: SaleUpdate): Promise<SaleRow> {
-    const { data, error } = await supabase
-      .from(table)
-      .update(payload)
-      .eq("id", id)
-      .select("*")
-      .single();
+  async create(payload: CreateSalePayload): Promise<SaleRow> {
+    const { data, error } = await supabase.rpc("create_sale", {
+      p_cashier_id: payload.cashier_id,
+      p_discount: payload.discount,
+      p_items: payload.items,
+      p_payments: payload.payments,
+      ...(payload.customer_id ? { p_customer_id: payload.customer_id } : {}),
+    });
 
     if (error) throw error;
 

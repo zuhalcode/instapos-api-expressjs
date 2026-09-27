@@ -1,20 +1,29 @@
 import z from "zod";
 
-export const saleIdSchema = z.object({
-  id: z.string().uuid(),
-});
-
 export const createSaleSchema = z.object({
-  invoice_number: z.string().min(1),
-  total: z.number().nonnegative(),
-});
+  customer_id: z.string().uuid().optional(),
 
-export const updateSaleSchema = z.object({
-  invoice_number: z.string().min(1),
-  total: z.number().nonnegative(),
+  discount: z.number().nonnegative().default(0),
+
+  items: z
+    .array(
+      z.object({
+        product_id: z.string().uuid(),
+        quantity: z.number().int().positive(),
+      }),
+    )
+    .min(1),
+
+  payments: z
+    .array(
+      z.object({
+        method: z.enum(["cash", "qris", "card", "transfer"]),
+        amount: z.number().positive(),
+      }),
+    )
+    .min(1),
 });
 
 type CreateSaleDTO = z.infer<typeof createSaleSchema>;
-type UpdateSaleDTO = z.infer<typeof updateSaleSchema>;
 
-export type { CreateSaleDTO, UpdateSaleDTO };
+export type { CreateSaleDTO };
