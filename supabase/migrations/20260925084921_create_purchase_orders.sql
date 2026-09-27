@@ -89,7 +89,6 @@ CREATE INDEX purchase_orders_status_idx
 CREATE INDEX purchase_order_items_product_id_idx
     ON public.purchase_order_items(product_id);
 
-
 -- =========================================================
 -- COMPLETE PURCHASE ORDER
 -- =========================================================
@@ -173,15 +172,44 @@ BEGIN
 
     UPDATE public.products AS p
     SET
-        stock = p.stock + poi.quantity,
-        purchase_price = poi.unit_price
-    FROM public.purchase_order_items AS poi
-    WHERE poi.purchase_order_id = p_purchase_order_id
-      AND poi.product_id = p.id;
+        stock = p.stock + item.quantity,
+        purchase_price = item.unit_price
+    FROM (
+        SELECT
+            poi.product_id,
+            SUM(poi.quantity) AS quantity,
+            MAX(poi.unit_price) AS unit_price
+        FROM public.purchase_order_items AS poi
+        WHERE poi.purchase_order_id = p_purchase_order_id
+        GROUP BY poi.product_id
+    ) AS item
+    WHERE p.id = item.product_id;
 
 
     -- =====================================================
-    -- 7. Complete purchase order
+    -- 7. Create stock movements
+    -- =====================================================
+
+    INSERT INTO public.stock_movements (
+        product_id,
+        type,
+        quantity,
+        reference_id,
+        note
+    )
+    SELECT
+        poi.product_id,
+        'in',
+        SUM(poi.quantity),
+        p_purchase_order_id,
+        'Purchase order completed'
+    FROM public.purchase_order_items AS poi
+    WHERE poi.purchase_order_id = p_purchase_order_id
+    GROUP BY poi.product_id;
+
+
+    -- =====================================================
+    -- 8. Complete purchase order
     -- =====================================================
 
     UPDATE public.purchase_orders AS po

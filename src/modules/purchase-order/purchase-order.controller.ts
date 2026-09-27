@@ -63,4 +63,30 @@ export default {
       return response.error(res, error);
     }
   },
+
+  async complete(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const { id } = idSchema.parse(req.params);
+      const message: string = "Purchase Order Completed";
+
+      const purchaseOrder = await purchaseOrderService.complete(id);
+
+      return response.success(res, purchaseOrder, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  async cancel(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const { id } = idSchema.parse(req.params);
+      const message: string = "Purchase Order Cancelled";
+
+      const purchaseOrder = await purchaseOrderService.cancel(id);
+
+      return response.success(res, purchaseOrder, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
 };

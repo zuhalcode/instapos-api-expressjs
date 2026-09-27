@@ -67,4 +67,35 @@ export default {
 
     return data;
   },
+
+  async complete(id: PurchaseOrderRow["id"]): Promise<PurchaseOrderRow> {
+    const { error } = await supabase.rpc("complete_purchase_order", {
+      p_purchase_order_id: id,
+    });
+
+    if (error) throw error;
+
+    const { data, error: fetchError } = await supabase
+      .from(table)
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    return data;
+  },
+
+  async cancel(id: PurchaseOrderRow["id"]): Promise<PurchaseOrderRow> {
+    const { data, error } = await supabase
+      .from(table)
+      .update({ status: "cancelled" })
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    if (error) throw error;
+
+    return data;
+  },
 };

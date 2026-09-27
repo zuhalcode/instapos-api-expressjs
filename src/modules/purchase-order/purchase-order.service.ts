@@ -14,7 +14,7 @@ export default {
     return purchaseOrderRepository.findAll();
   },
 
-  async findOne(id: string): Promise<PurchaseOrderRow> {
+  async findOne(id: PurchaseOrderRow["id"]): Promise<PurchaseOrderRow> {
     return purchaseOrderRepository.findOne(id);
   },
 
@@ -27,9 +27,16 @@ export default {
   },
 
   async update(
-    id: string,
+    id: PurchaseOrderRow["id"],
     dto: UpdatePurchaseOrderDTO,
   ): Promise<PurchaseOrderRow> {
     return purchaseOrderRepository.update(id, dto);
+  },
+
+  async complete(id: PurchaseOrderRow["id"]): Promise<PurchaseOrderRow> {
+    return purchaseOrderRepository.complete(id);
+  },
+  async cancel(id: PurchaseOrderRow["id"]): Promise<PurchaseOrderRow> {
+    return purchaseOrderRepository.cancel(id);
   },
 };

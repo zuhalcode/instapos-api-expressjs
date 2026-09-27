@@ -159,6 +159,20 @@ router.patch(
   purchaseOrderController.update,
 );
 
+router.patch(
+  "/purchase-orders/:id/complete",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.complete,
+);
+
+router.patch(
+  "/purchase-orders/:id/cancel",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  purchaseOrderController.cancel,
+);
+
 //#endregion
 
 // TRASH
