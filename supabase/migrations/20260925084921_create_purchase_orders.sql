@@ -220,3 +220,63 @@ BEGIN
 
 END;
 $$;
+
+-- =========================================================
+-- CANCEL PURCHASE ORDER
+-- =========================================================
+
+CREATE OR REPLACE FUNCTION public.cancel_purchase_order(
+    p_purchase_order_id uuid
+)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY INVOKER
+SET search_path = public
+AS $$
+DECLARE
+    v_status public.purchase_order_status;
+BEGIN
+
+    -- =====================================================
+    -- 1. Lock purchase order
+    -- =====================================================
+
+    SELECT po.status
+    INTO v_status
+    FROM public.purchase_orders AS po
+    WHERE po.id = p_purchase_order_id
+    FOR UPDATE;
+
+
+    -- =====================================================
+    -- 2. Validate purchase order exists
+    -- =====================================================
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Purchase order not found';
+    END IF;
+
+
+    -- =====================================================
+    -- 3. Only draft can be cancelled
+    -- =====================================================
+
+    IF v_status <> 'draft' THEN
+        RAISE EXCEPTION
+            'Purchase order cannot be cancelled from status %',
+            v_status;
+    END IF;
+
+
+    -- =====================================================
+    -- 4. Cancel purchase order
+    -- =====================================================
+
+    UPDATE public.purchase_orders
+    SET
+        status = 'cancelled',
+        updated_at = now()
+    WHERE id = p_purchase_order_id;
+
+END;
+$$;
