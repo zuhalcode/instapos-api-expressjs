@@ -74,3 +74,13 @@
 | `/purchase-orders/:id/items/:itemId` | `PATCH` | `SUPERUSER` `SUPERVISOR` | Update Purchase Orders Items |
 
 ---
+
+## Sales
+
+| ENDPOINT     | METHOD | AUTHORIZE                | NOTE                      |
+| ------------ | ------ | ------------------------ | ------------------------- |
+| `/sales`     | `GET`  | `SUPERUSER` `SUPERVISOR` | Get All Sales             |
+| `/sales/:id` | `GET`  | `SUPERUSER` `SUPERVISOR` | Detail Sales + Sale Items |
+| `/sales`     | `POST` | `SUPERUSER` `SUPERVISOR` | Create Sales → `complete` |
+
+---
