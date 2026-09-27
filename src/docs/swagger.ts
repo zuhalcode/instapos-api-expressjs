@@ -8,14 +8,12 @@ import { productSchemas } from "./product/product.schema";
 import { productPaths } from "./product/product.path";
 import { categorySchemas } from "./category/category.schema";
 import { categoryPaths } from "./category/category.path";
-import { salePaths } from "./sales/sale.path";
-import { saleSchemas } from "./sales/sale.schema";
-import { paymentPaths } from "./payment/payment.path";
-import { paymentSchemas } from "./payment/payment.schema";
+import { salePaths } from "./sale/sale.path";
+import { saleSchemas } from "./sale/sale.schema";
 import { supplierPaths } from "./supplier/supplier.path";
 import { supplierSchemas } from "./supplier/supplier.schema";
-import { purchaseOrderPaths } from "./purchase-orders/purchase-order.path";
-import { purchaseOrderSchemas } from "./purchase-orders/purchase-orders.schema";
+import { purchaseOrderPaths } from "./purchase-order/purchase-order.path";
+import { purchaseOrderSchemas } from "./purchase-order/purchase-orders.schema";
 
 const servers: Record<AppEnv, OpenAPIV3.ServerObject> = {
   development: { url: "http://localhost:3001", description: "Development" },
@@ -46,8 +44,7 @@ export const swaggerDocument: OpenAPIV3.Document = {
     ...productPaths,
     ...supplierPaths,
     ...purchaseOrderPaths,
-    // ...salePaths,
-    // ...paymentPaths,
+    ...salePaths,
   },
 
   components: {
@@ -58,8 +55,7 @@ export const swaggerDocument: OpenAPIV3.Document = {
       ...productSchemas,
       ...supplierSchemas,
       ...purchaseOrderSchemas,
-      // ...saleSchemas,
-      // ...paymentSchemas,
+      ...saleSchemas,
     },
 
     securitySchemes: {
