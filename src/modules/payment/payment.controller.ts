@@ -16,9 +16,9 @@ export default {
   async findAll(_: IReqUser, res: Response): Promise<void> {
     try {
       const message: string = "Data Retrieved Successfully";
-      const users = await saleService.findAll();
+      const sales = await saleService.findAll();
 
-      return response.success(res, users, message);
+      return response.success(res, sales, message);
     } catch (error) {
       return response.error(res, error);
     }
