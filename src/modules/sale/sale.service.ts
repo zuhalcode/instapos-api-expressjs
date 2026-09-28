@@ -10,25 +10,7 @@ export default {
   async findAll(): Promise<SaleWithDetails[]> {
     const sales = await saleRepository.findAll();
 
-    return sales.map((sale) => {
-      const { cashier, customer, ...saleData } = sale;
-
-      return {
-        ...saleData,
-
-        cashier_name: cashier?.name ?? null,
-        customer_name: customer?.name ?? null,
-
-        items: sale.items.map((item) => {
-          const { product, ...itemData } = item;
-
-          return {
-            ...itemData,
-            product_name: product?.name ?? null,
-          };
-        }),
-      };
-    });
+    return sales.map(mapSaleWithDetails);
   },
 
   async findOne(id: string): Promise<SaleWithDetails> {
