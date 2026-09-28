@@ -10,7 +10,7 @@ import { categoryController } from "./modules/category";
 import { ROLES } from "./shared";
 import { supplierController } from "./modules/supplier";
 import { purchaseOrderController } from "./modules/purchase-order";
-import { saleController } from "./modules/payment";
+import { saleController } from "./modules/sale";
 
 //#endregion
 

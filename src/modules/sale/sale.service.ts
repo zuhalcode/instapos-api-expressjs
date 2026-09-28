@@ -2,11 +2,11 @@
 
 import saleRepository from "./sale.repository";
 import { CreateSaleDTO } from "./sale.schema";
-import { CreateSalePayload, SaleInsert, SaleRow } from "./sale.types";
+import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
 //#endregion
 
 export default {
-  async findAll(): Promise<SaleRow[]> {
+  async findAll(): Promise<SaleWithDetails[]> {
     return saleRepository.findAll();
   },
 

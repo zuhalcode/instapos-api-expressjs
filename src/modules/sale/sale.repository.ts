@@ -1,18 +1,21 @@
 import { supabase } from "../../libs/supabase";
 import { TABLES } from "../../shared";
 import { CreateSaleDTO } from "./sale.schema";
-import {
-  CreateSalePayload,
-  SaleInsert,
-  SaleRow,
-  SaleUpdate,
-} from "./sale.types";
+import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
 
 const table = TABLES.SALES;
 
 export default {
-  async findAll(): Promise<SaleRow[]> {
-    const { data, error } = await supabase.from(table).select("*");
+  async findAll(): Promise<SaleWithDetails[]> {
+    const { data, error } = await supabase.from(table).select(`
+      *,
+      items:sale_items (
+        *
+      ),
+      payments:payments (
+        *
+      )
+    `);
 
     if (error) throw error;
 
