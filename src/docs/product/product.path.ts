@@ -12,6 +12,8 @@ export const productPaths: OpenAPIV3.PathsObject = {
     get: {
       tags,
       summary: "Get all products",
+      description:
+        "Returns products that have been associated with at least one supplier through purchase orders.",
       security: [{ bearerAuth: [] }],
 
       responses: {
@@ -61,6 +63,7 @@ export const productPaths: OpenAPIV3.PathsObject = {
     post: {
       tags,
       summary: "Create product",
+      description: "Create a new product.",
       security: [{ bearerAuth: [] }],
 
       requestBody: {
@@ -120,6 +123,7 @@ export const productPaths: OpenAPIV3.PathsObject = {
     get: {
       tags,
       summary: "Get product by id",
+      description: "Returns a product by its UUID.",
       security: [{ bearerAuth: [] }],
 
       parameters: [
@@ -167,7 +171,7 @@ export const productPaths: OpenAPIV3.PathsObject = {
         },
 
         404: {
-          description: "Not Found",
+          description: "Product not found",
           content: {
             "application/json": {
               schema: errorResponseSchema(404, "Product not found"),
@@ -248,7 +252,7 @@ export const productPaths: OpenAPIV3.PathsObject = {
         },
 
         404: {
-          description: "Not Found",
+          description: "Product not found",
           content: {
             "application/json": {
               schema: errorResponseSchema(404, "Product not found"),
