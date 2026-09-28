@@ -1,6 +1,6 @@
 import { supabase } from "../../libs/supabase";
 import { TABLES } from "../../shared";
-import { CreateSaleDTO } from "./sale.schema";
+
 import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
 
 const table = TABLES.SALES;
@@ -9,8 +9,26 @@ export default {
   async findAll(): Promise<SaleWithDetails[]> {
     const { data, error } = await supabase.from(table).select(`
       *,
-      items:sale_items (
+      cashier:users!sales_cashier_id_fkey (
         *
+      ),
+      customer:customers (
+        *
+      ),
+      items:sale_items (
+        *,
+        product:products (
+          *,
+          purchase_order_items (
+            *,
+            purchase_order:purchase_orders (
+              *,
+              supplier:suppliers (
+                *
+              )
+            )
+          )
+        )
       ),
       payments:payments (
         *
