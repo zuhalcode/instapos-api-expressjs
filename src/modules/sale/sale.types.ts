@@ -3,13 +3,15 @@ import { ProductRow } from "../product";
 import { SaleItemRow } from "../sale-item";
 import { UserRow } from "../user";
 
+type StrictOmit<T, K extends keyof T> = Omit<T, K>;
+
 type SaleRow = Database["public"]["Tables"]["sales"]["Row"];
 type SaleInsert = Database["public"]["Tables"]["sales"]["Insert"];
 type SaleUpdate = Database["public"]["Tables"]["sales"]["Update"];
 type PaymentRow = Database["public"]["Tables"]["payments"]["Row"];
 type CustomerRow = Database["public"]["Tables"]["customers"]["Row"];
 
-export type CreateSalePayload = {
+type CreateSalePayload = {
   cashier_id: string;
   customer_id?: string;
   discount: number;
@@ -34,14 +36,17 @@ type SaleItemWithRelations = SaleItemRow & {
   product: Pick<ProductRow, "name">;
 };
 
-type SaleWithDetails = SaleRow & {
+type SaleWithDetails = StrictOmit<SaleRow, "created_at" | "updated_at"> & {
   cashier_name: string;
   customer_name: string | null;
   items: SaleItemWithDetails[];
-  payments: PaymentRow[];
+  payment: Pick<PaymentRow, "amount" | "method"> | null;
 };
 
-type SaleItemWithDetails = SaleItemRow & {
+type SaleItemWithDetails = Pick<
+  SaleItemRow,
+  "unit_price" | "quantity" | "subtotal"
+> & {
   product_name: string;
 };
 
@@ -51,4 +56,5 @@ export type {
   SaleUpdate,
   SaleWithDetails,
   SaleWithRelations,
+  CreateSalePayload,
 };

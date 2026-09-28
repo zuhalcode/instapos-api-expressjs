@@ -1,7 +1,7 @@
 import { supabase } from "../../libs/supabase";
 import { TABLES } from "../../shared";
 
-import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
+import { CreateSalePayload, SaleRow, SaleWithRelations } from "./sale.types";
 
 const table = TABLES.SALES;
 
@@ -25,7 +25,7 @@ const select = `
     `;
 
 export default {
-  async findAll() {
+  async findAll(): Promise<SaleWithRelations[]> {
     const { data, error } = await supabase.from(table).select(select);
 
     if (error) throw error;
@@ -33,7 +33,7 @@ export default {
     return data;
   },
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<SaleWithRelations> {
     const { data, error } = await supabase
       .from(table)
       .select(select)

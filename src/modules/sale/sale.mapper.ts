@@ -3,7 +3,7 @@ import { SaleWithDetails, SaleWithRelations } from "./sale.types";
 export const mapSaleWithDetails = (
   sale: SaleWithRelations,
 ): SaleWithDetails => {
-  const { cashier, customer, items, ...saleData } = sale;
+  const { cashier, customer, items, payments, ...saleData } = sale;
 
   return {
     ...saleData,
@@ -12,12 +12,18 @@ export const mapSaleWithDetails = (
     customer_name: customer?.name ?? null,
 
     items: items.map((item) => {
-      const { product, ...itemData } = item;
-
       return {
-        ...itemData,
-        product_name: product?.name ?? null,
+        product_name: item.product?.name ?? null,
+        unit_price: item.unit_price,
+        quantity: item.quantity,
+        subtotal: item.subtotal,
       };
     }),
+    payment: payments[0]
+      ? {
+          amount: payments[0].amount,
+          method: payments[0].method,
+        }
+      : null,
   };
 };
