@@ -1,6 +1,8 @@
 import { seedUsers } from "./seed-auth";
+import { seedProducts, updateProductPrices } from "./seed-product";
 import { seedPurchaseOrderItems } from "./seed-po-item";
-import { seedProducts } from "./seed-product";
+import { seedSales } from "./seed-sale";
+import { completePurchaseOrders } from "./seed-complete-po";
 
 async function main() {
   console.log("Starting database seed...\n");
@@ -14,6 +16,18 @@ async function main() {
   console.log("");
 
   await seedPurchaseOrderItems();
+
+  console.log("");
+
+  await completePurchaseOrders();
+
+  console.log("");
+
+  await updateProductPrices();
+
+  console.log("");
+
+  await seedSales();
 
   console.log("\nDatabase seed completed successfully.");
 }
