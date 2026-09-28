@@ -62,3 +62,4 @@ VALUES
     ('MEM003', 'andi pratama', '081234567803', 250),
     ('MEM004', 'dewi lestari', '081234567804', 50),
     ('MEM005', 'rizky maulana', '081234567805', 180);
+
