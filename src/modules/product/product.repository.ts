@@ -4,6 +4,7 @@ import {
   ProductInsert,
   ProductRow,
   ProductUpdate,
+  ProductWithCategory,
   ProductWithSuppliers,
 } from "./product.types";
 
@@ -13,56 +14,73 @@ const select = `
   *,
   category:categories (
     name
+  ),
+` as const;
+
+const supplierSelect = `
+  product_id,
+  purchase_orders (
+    suppliers (*)
   )
 `;
 
 export default {
-  async findAll(): Promise<ProductWithSuppliers[]> {
+  async findAll() {
     const { data: products, error: productError } = await supabase
-      .from("products")
+      .from(table)
       .select("*");
 
     if (productError) throw productError;
 
-    const productIds = products.map((product) => product.id);
+    const productIds = products.map(({ id }) => id);
 
     const { data: items, error: itemError } = await supabase
       .from("purchase_order_items")
-      .select(`product_id, purchase_orders(suppliers(*))`)
+      .select(supplierSelect)
       .in("product_id", productIds);
 
     if (itemError) throw itemError;
 
-    const result = products
-      .map((product) => ({
-        ...product,
-        suppliers: items
-          .filter((item) => item.product_id === product.id)
-          .map((item) => item.purchase_orders?.suppliers)
-          .filter(Boolean),
-      }))
-      .filter((product) => product.suppliers.length > 0);
-
-    return result;
+    return {
+      products,
+      items,
+    };
   },
 
-  async findOne(id: string): Promise<ProductRow> {
-    const { data, error } = await supabase
+  async findOne(id: string) {
+    const { data: product, error: productError } = await supabase
       .from(table)
-      .select(select)
+      .select("*")
       .eq("id", id)
       .single();
 
-    if (error) throw error;
+    if (productError) throw productError;
 
-    return data;
+    const { data: items, error: itemError } = await supabase
+      .from("purchase_order_items")
+      .select(supplierSelect)
+      .eq("product_id", id);
+
+    if (itemError) throw itemError;
+
+    return {
+      product,
+      items,
+    };
   },
 
-  async create(payload: ProductInsert): Promise<ProductRow> {
+  async create(payload: ProductInsert): Promise<ProductWithCategory> {
     const { data, error } = await supabase
       .from(table)
       .insert(payload)
-      .select(select)
+      .select(
+        `
+        *,
+        category:categories (
+          name
+        )
+      `,
+      )
       .single();
 
     if (error) throw error;
@@ -70,12 +88,22 @@ export default {
     return data;
   },
 
-  async update(id: string, payload: ProductUpdate): Promise<ProductRow> {
+  async update(
+    id: string,
+    payload: ProductUpdate,
+  ): Promise<ProductWithCategory> {
     const { data, error } = await supabase
       .from(table)
       .update(payload)
       .eq("id", id)
-      .select(select)
+      .select(
+        `
+        *,
+        category:categories (
+          name
+        )
+      `,
+      )
       .single();
 
     if (error) throw error;

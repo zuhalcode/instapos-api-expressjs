@@ -1,18 +1,29 @@
 //#region-imports
 
+import {
+  mapProductsWithSuppliers,
+  mapProductWithSuppliers,
+} from "./product.mapper";
 import productRepository from "./product.repository";
 import { CreateProductDTO, UpdateProductDTO } from "./product.schema";
-import { ProductInsert, ProductRow } from "./product.types";
+import {
+  ProductInsert,
+  ProductRow,
+  ProductWithSuppliers,
+} from "./product.types";
 
 //#endregion
 
 export default {
-  async findAll(): Promise<ProductRow[]> {
-    return productRepository.findAll();
+  async findAll(): Promise<ProductWithSuppliers[]> {
+    const { products, items } = await productRepository.findAll();
+    return mapProductsWithSuppliers(products, items);
   },
 
-  async findOne(id: string): Promise<ProductRow> {
-    return productRepository.findOne(id);
+  async findOne(id: string): Promise<ProductWithSuppliers> {
+    const { product, items } = await productRepository.findOne(id);
+
+    return mapProductWithSuppliers(product, items);
   },
 
   async create(dto: CreateProductDTO): Promise<ProductRow> {
