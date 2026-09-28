@@ -1,5 +1,6 @@
 //#region-imports
 
+import { mapSaleWithDetails } from "./sale.mapper";
 import saleRepository from "./sale.repository";
 import { CreateSaleDTO } from "./sale.schema";
 import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
@@ -7,11 +8,33 @@ import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
 
 export default {
   async findAll(): Promise<SaleWithDetails[]> {
-    return saleRepository.findAll();
+    const sales = await saleRepository.findAll();
+
+    return sales.map((sale) => {
+      const { cashier, customer, ...saleData } = sale;
+
+      return {
+        ...saleData,
+
+        cashier_name: cashier?.name ?? null,
+        customer_name: customer?.name ?? null,
+
+        items: sale.items.map((item) => {
+          const { product, ...itemData } = item;
+
+          return {
+            ...itemData,
+            product_name: product?.name ?? null,
+          };
+        }),
+      };
+    });
   },
 
-  async findOne(id: string): Promise<SaleRow> {
-    return saleRepository.findOne(id);
+  async findOne(id: string): Promise<SaleWithDetails> {
+    const sale = await saleRepository.findOne(id);
+
+    return mapSaleWithDetails(sale);
   },
 
   async create(userId: string, dto: CreateSaleDTO): Promise<SaleRow> {

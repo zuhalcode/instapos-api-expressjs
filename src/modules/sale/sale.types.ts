@@ -1,8 +1,6 @@
 import { Database } from "../../types/database.types";
 import { ProductRow } from "../product";
-import { PurchaseOrderItemRow, PurchaseOrderRow } from "../purchase-order";
 import { SaleItemRow } from "../sale-item";
-import { SupplierRow } from "../supplier";
 import { UserRow } from "../user";
 
 type SaleRow = Database["public"]["Tables"]["sales"]["Row"];
@@ -25,25 +23,32 @@ export type CreateSalePayload = {
   }[];
 };
 
+type SaleWithRelations = SaleRow & {
+  cashier: Pick<UserRow, "name">;
+  customer: Pick<CustomerRow, "name"> | null;
+  items: SaleItemWithRelations[];
+  payments: PaymentRow[];
+};
+
+type SaleItemWithRelations = SaleItemRow & {
+  product: Pick<ProductRow, "name">;
+};
+
 type SaleWithDetails = SaleRow & {
-  cashier: UserRow;
-  customer: CustomerRow | null;
+  cashier_name: string;
+  customer_name: string | null;
   items: SaleItemWithDetails[];
   payments: PaymentRow[];
 };
 
 type SaleItemWithDetails = SaleItemRow & {
-  product: ProductRow & {
-    purchase_order_items: PurchaseOrderItemWithDetails[];
-  };
+  product_name: string;
 };
 
-type PurchaseOrderItemWithDetails = PurchaseOrderItemRow & {
-  purchase_order: PurchaseOrderWithSupplier;
+export type {
+  SaleRow,
+  SaleInsert,
+  SaleUpdate,
+  SaleWithDetails,
+  SaleWithRelations,
 };
-
-type PurchaseOrderWithSupplier = PurchaseOrderRow & {
-  supplier: SupplierRow;
-};
-
-export type { SaleRow, SaleInsert, SaleUpdate, SaleWithDetails };

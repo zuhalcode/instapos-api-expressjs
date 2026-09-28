@@ -5,45 +5,38 @@ import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
 
 const table = TABLES.SALES;
 
-export default {
-  async findAll(): Promise<SaleWithDetails[]> {
-    const { data, error } = await supabase.from(table).select(`
+const select = `
       *,
       cashier:users!sales_cashier_id_fkey (
-        *
+        name
       ),
       customer:customers (
-        *
+        name
       ),
       items:sale_items (
         *,
         product:products (
-          *,
-          purchase_order_items (
-            *,
-            purchase_order:purchase_orders (
-              *,
-              supplier:suppliers (
-                *
-              )
-            )
-          )
+          name
         )
       ),
       payments:payments (
         *
       )
-    `);
+    `;
+
+export default {
+  async findAll() {
+    const { data, error } = await supabase.from(table).select(select);
 
     if (error) throw error;
 
     return data;
   },
 
-  async findOne(id: string): Promise<SaleRow> {
+  async findOne(id: string) {
     const { data, error } = await supabase
       .from(table)
-      .select("*")
+      .select(select)
       .eq("id", id)
       .single();
 
