@@ -6,6 +6,10 @@ type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 type ProductInsert = Database["public"]["Tables"]["products"]["Insert"];
 type ProductUpdate = Database["public"]["Tables"]["products"]["Update"];
 
+type ProductWithRelations = ProductWithCategory & {
+  supplier: SupplierRow | null;
+};
+
 type ProductWithCategory = ProductRow & {
   category: {
     name: string;
@@ -13,7 +17,7 @@ type ProductWithCategory = ProductRow & {
 };
 
 type ProductWithSuppliers = ProductRow & {
-  suppliers: SupplierRow[];
+  suppliers: Pick<SupplierRow, "id" | "code" | "name">[];
 };
 
 export type ProductSupplierItem = {
@@ -23,10 +27,16 @@ export type ProductSupplierItem = {
   } | null;
 };
 
+type ProductResponse = Omit<ProductWithRelations, "category"> & {
+  category_name: string | null;
+};
+
 export type {
   ProductRow,
   ProductInsert,
   ProductUpdate,
   ProductWithSuppliers,
   ProductWithCategory,
+  ProductWithRelations,
+  ProductResponse,
 };

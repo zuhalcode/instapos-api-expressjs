@@ -4,9 +4,20 @@ import {
   ProductWithSuppliers,
 } from "./product.types";
 
+import { ProductResponse, ProductWithRelations } from "./product.types";
+
 function isDefined<T>(value: T | undefined): value is T {
   return value !== undefined;
 }
+
+export const mapProduct = (product: ProductWithRelations): ProductResponse => {
+  const { category, ...productData } = product;
+
+  return {
+    ...productData,
+    category_name: category?.name ?? null,
+  };
+};
 
 export function mapProductsWithSuppliers(
   products: ProductRow[],

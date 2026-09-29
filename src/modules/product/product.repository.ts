@@ -5,16 +5,17 @@ import {
   ProductRow,
   ProductUpdate,
   ProductWithCategory,
+  ProductWithRelations,
   ProductWithSuppliers,
 } from "./product.types";
 
 const table = TABLES.PRODUCTS;
 
-const select = `
+const productSelect = `
   *,
   category:categories (
     name
-  ),
+  )
 ` as const;
 
 const supplierSelect = `
@@ -25,12 +26,19 @@ const supplierSelect = `
 `;
 
 export default {
-  async findAll() {
+  async findAll(): Promise<ProductWithRelations[]> {
     const { data: products, error: productError } = await supabase
       .from(table)
-      .select("*");
+      .select(productSelect)
+      .overrideTypes<ProductWithCategory[]>();
 
-    if (productError) throw productError;
+    if (productError) {
+      throw productError;
+    }
+
+    if (products.length === 0) {
+      return [];
+    }
 
     const productIds = products.map(({ id }) => id);
 
@@ -39,33 +47,62 @@ export default {
       .select(supplierSelect)
       .in("product_id", productIds);
 
-    if (itemError) throw itemError;
+    if (itemError) {
+      throw itemError;
+    }
 
-    return {
-      products,
-      items,
-    };
+    const suppliersByProduct = new Map(
+      items.map((item) => [
+        item.product_id,
+        item.purchase_orders?.suppliers ?? null,
+      ]),
+    );
+
+    return products.map((product) => {
+      const supplier = suppliersByProduct.get(product.id) ?? null;
+
+      // Debug hanya product tertentu
+      if (product.id === "d62c01aa-65bc-4307-8cf2-a0c40d9df438") {
+        console.log("[PRODUCT SUPPLIER DEBUG]", {
+          product_id: product.id,
+          supplier_id: supplier?.id ?? null,
+          supplier_name: supplier?.name ?? null,
+        });
+      }
+
+      return {
+        ...product,
+        supplier,
+      };
+    });
   },
 
-  async findOne(id: string) {
+  async findOne(id: ProductRow["id"]): Promise<ProductWithRelations | null> {
     const { data: product, error: productError } = await supabase
       .from(table)
-      .select("*")
+      .select(productSelect)
       .eq("id", id)
-      .single();
+      .maybeSingle();
 
     if (productError) throw productError;
 
-    const { data: items, error: itemError } = await supabase
+    if (!product) {
+      return null;
+    }
+
+    const typedProduct = product as ProductWithCategory;
+
+    const { data: item, error: itemError } = await supabase
       .from("purchase_order_items")
       .select(supplierSelect)
-      .eq("product_id", id);
+      .eq("product_id", typedProduct.id)
+      .maybeSingle();
 
     if (itemError) throw itemError;
 
     return {
-      product,
-      items,
+      ...typedProduct,
+      supplier: item?.purchase_orders?.suppliers ?? null,
     };
   },
 
