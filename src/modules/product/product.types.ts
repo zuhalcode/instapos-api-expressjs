@@ -23,7 +23,7 @@ type ProductWithSuppliers = ProductRow & {
 export type ProductSupplierItem = {
   product_id: PurchaseOrderItemRow["product_id"];
   purchase_orders: {
-    suppliers: SupplierRow;
+    suppliers: Pick<SupplierRow, "id" | "code" | "name">;
   } | null;
 };
 
