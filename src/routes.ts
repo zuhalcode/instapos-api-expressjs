@@ -54,12 +54,7 @@ router.patch(
 
 //#region-categories
 
-router.get(
-  "/categories",
-  isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.CASHIER),
-  categoryController.findAll,
-);
+router.get("/categories", isAuthenticated, categoryController.findAll);
 
 router.post(
   "/categories",
