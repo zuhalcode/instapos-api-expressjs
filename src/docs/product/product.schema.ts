@@ -20,7 +20,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         type: "string",
         nullable: true,
         maxLength: 100,
-        example: "PT Supplier Emas",
+        example: "PT Sejahtera",
       },
     },
   },
@@ -133,7 +133,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       name: {
         type: "string",
         minLength: 1,
-        example: "Cincin Emas",
+        example: "",
       },
 
       price: {
@@ -164,7 +164,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       name: {
         type: "string",
         minLength: 1,
-        example: "Cincin Emas Special",
+        example: "Indomie Special",
       },
 
       price: {
