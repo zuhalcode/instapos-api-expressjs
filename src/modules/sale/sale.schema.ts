@@ -3,8 +3,6 @@ import z from "zod";
 export const createSaleSchema = z.object({
   customer_id: z.string().uuid().optional(),
 
-  discount: z.number().nonnegative().default(0),
-
   items: z
     .array(
       z.object({

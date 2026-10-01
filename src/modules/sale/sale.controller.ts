@@ -37,7 +37,13 @@ export default {
 
   async create(req: IReqUser, res: Response): Promise<void> {
     try {
-      const { id: userId } = idSchema.parse(req.param);
+      const userId = req.user?.id;
+
+      if (!userId) {
+        response.error(res, "Unauthorized");
+        return;
+      }
+
       const dto = createSaleSchema.parse(req.body);
       const message: string = "Sale created successfully";
 

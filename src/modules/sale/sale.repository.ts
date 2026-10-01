@@ -48,7 +48,6 @@ export default {
   async create(payload: CreateSalePayload): Promise<SaleRow> {
     const { data, error } = await supabase.rpc("create_sale", {
       p_cashier_id: payload.cashier_id,
-      p_discount: payload.discount,
       p_items: payload.items,
       p_payments: payload.payments,
       ...(payload.customer_id ? { p_customer_id: payload.customer_id } : {}),

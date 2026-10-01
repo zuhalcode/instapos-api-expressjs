@@ -2,7 +2,7 @@
 
 import productRepository from "./product.repository";
 import { CreateProductDTO, UpdateProductDTO } from "./product.schema";
-import { ProductInsert, ProductResponse, ProductRow } from "./product.types";
+import { ProductInsert, ProductRow } from "./product.types";
 
 //#endregion
 
@@ -13,7 +13,9 @@ export default {
     return products;
   },
 
-  async findOne(id: ProductRow["id"]) {},
+  async findOne(id: string) {
+    return productRepository.findOne(id);
+  },
 
   async create(dto: CreateProductDTO): Promise<ProductRow> {
     const payload: ProductInsert = {

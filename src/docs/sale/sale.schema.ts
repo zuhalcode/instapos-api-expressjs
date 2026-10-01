@@ -9,7 +9,6 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       "cashier_id",
       "customer_id",
       "subtotal",
-      "discount",
       "total",
       "status",
       "created_at",
@@ -53,14 +52,6 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         minimum: 0,
         description: "Total amount before discount.",
         example: 100000,
-      },
-
-      discount: {
-        type: "number",
-        format: "double",
-        minimum: 0,
-        description: "Discount applied to the sale.",
-        example: 5000,
       },
 
       total: {

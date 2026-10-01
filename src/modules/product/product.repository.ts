@@ -28,22 +28,6 @@ const select = `
   )
 `;
 
-const productSelect = `
-  *,
-  category:categories (
-    name
-  )
-` as const;
-
-const supplierSelect = `
-  product_id,
-  purchase_orders (
-    suppliers ( id,
-      code,
-      name)
-  )
-`;
-
 export default {
   async findAll() {
     const { data, error } = await supabase.from(table).select(select);
@@ -72,7 +56,33 @@ export default {
     });
   },
 
-  async findOne(id: ProductRow["id"]) {},
+  async findOne(id: string) {
+    const { data, error } = await supabase
+      .from(table)
+      .select(select)
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    const suppliers = data.purchase_order_items
+      .map((item) => item.purchase_order?.supplier)
+      .filter(Boolean);
+
+    const uniqueSuppliers = Array.from(
+      new Map(suppliers.map((supplier) => [supplier.id, supplier])).values(),
+    );
+
+    return {
+      ...data,
+      category_name: data.category?.name ?? null,
+      suppliers: uniqueSuppliers,
+      category: undefined,
+      purchase_order_items: undefined,
+    };
+  },
 
   async create(payload: ProductInsert): Promise<ProductWithCategory> {
     const { data, error } = await supabase

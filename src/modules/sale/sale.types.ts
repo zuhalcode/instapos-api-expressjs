@@ -14,7 +14,6 @@ type CustomerRow = Database["public"]["Tables"]["customers"]["Row"];
 type CreateSalePayload = {
   cashier_id: string;
   customer_id?: string;
-  discount: number;
   items: {
     product_id: string;
     quantity: number;

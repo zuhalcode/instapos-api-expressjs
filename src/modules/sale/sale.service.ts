@@ -23,7 +23,6 @@ export default {
     const payload: CreateSalePayload = {
       cashier_id: userId,
       ...(dto.customer_id ? { customer_id: dto.customer_id } : {}),
-      discount: dto.discount,
       items: dto.items,
       payments: dto.payments,
     };
