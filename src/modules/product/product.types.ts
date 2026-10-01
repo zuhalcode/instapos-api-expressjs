@@ -16,14 +16,12 @@ type ProductWithCategory = ProductRow & {
   };
 };
 
-type ProductWithSuppliers = ProductRow & {
-  suppliers: Pick<SupplierRow, "id" | "code" | "name">[];
-};
+type ProductSupplier = Pick<SupplierRow, "id" | "code" | "name">;
 
 export type ProductSupplierItem = {
   product_id: PurchaseOrderItemRow["product_id"];
   purchase_orders: {
-    suppliers: Pick<SupplierRow, "id" | "code" | "name">;
+    supplier: ProductSupplier;
   } | null;
 };
 
@@ -35,7 +33,6 @@ export type {
   ProductRow,
   ProductInsert,
   ProductUpdate,
-  ProductWithSuppliers,
   ProductWithCategory,
   ProductWithRelations,
   ProductResponse,
