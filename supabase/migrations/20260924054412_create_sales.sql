@@ -391,12 +391,14 @@ BEGIN
 
         INSERT INTO stock_movements (
             product_id,
+            type,
             quantity,
             reference_id
         )
         VALUES (
             v_product_id,
-            -v_quantity,
+            "out",
+            v_quantity,
             v_sale.id
         );
 
