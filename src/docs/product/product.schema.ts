@@ -55,7 +55,7 @@ export const productSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
 
       name: {
         type: "string",
-        example: "Cincin Emas",
+        example: "Indomie goreng",
       },
 
       purchase_price: {
