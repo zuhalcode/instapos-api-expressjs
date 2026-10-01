@@ -65,18 +65,16 @@ export const salePaths: OpenAPIV3.PathsObject = {
               $ref: "#/components/schemas/CreateSaleRequest",
             },
             example: {
-              customer_id: "550e8400-e29b-41d4-a716-446655440000",
-              discount: 5000,
               items: [
                 {
-                  product_id: "5b8f3c21-7a6e-4d91-b2f8-8c3e1a456789",
-                  quantity: 2,
+                  product_id: "6f102b98-b126-4e46-bff9-bf564a154669",
+                  quantity: 1,
                 },
               ],
               payments: [
                 {
                   method: "cash",
-                  amount: 100000,
+                  amount: 1000000,
                 },
               ],
             },

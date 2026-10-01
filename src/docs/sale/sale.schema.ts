@@ -50,7 +50,7 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         type: "number",
         format: "double",
         minimum: 0,
-        description: "Total amount before discount.",
+        description: "Total amount.",
         example: 100000,
       },
 
@@ -58,7 +58,7 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         type: "number",
         format: "double",
         minimum: 0,
-        description: "Final sale amount after discount.",
+        description: "Final sale amount",
         example: 95000,
       },
 
@@ -259,15 +259,6 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
         format: "uuid",
         description: "Customer UUID.",
         example: "550e8400-e29b-41d4-a716-446655440000",
-      },
-
-      discount: {
-        type: "number",
-        format: "double",
-        minimum: 0,
-        default: 0,
-        description: "Discount applied to the sale.",
-        example: 5000,
       },
 
       items: {
