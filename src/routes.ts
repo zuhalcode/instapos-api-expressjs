@@ -11,6 +11,7 @@ import { ROLES } from "./shared";
 import { supplierController } from "./modules/supplier";
 import { purchaseOrderController } from "./modules/purchase-order";
 import { saleController } from "./modules/sale";
+import { dashboardController } from "./modules/dashboard";
 
 //#endregion
 
@@ -19,6 +20,14 @@ const router = express.Router();
 // AUTH
 router.post("/auth/login", authController.login);
 router.post("/auth/logout", isAuthenticated, authController.logout);
+
+// DASHBOARD
+router.get(
+  "/dashboard/stats",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  dashboardController.getStats,
+);
 
 //#region-users
 
