@@ -44,3 +44,53 @@ export const validationErrorResponseSchema = (): OpenAPIV3.SchemaObject =>
     },
     example: [{}],
   });
+
+export const dashboardResponseSchema = (
+  schema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
+  description: string,
+): OpenAPIV3.ResponseObject => ({
+  description,
+  content: {
+    "application/json": {
+      schema: {
+        type: "object",
+        required: ["success", "message", "data"],
+        properties: {
+          success: {
+            type: "boolean",
+            example: true,
+          },
+          message: {
+            type: "string",
+            example: description,
+          },
+          data: schema,
+        },
+      },
+    },
+  },
+});
+
+export const dashboardErrorResponseSchema = (
+  description: string,
+): OpenAPIV3.ResponseObject => ({
+  description,
+  content: {
+    "application/json": {
+      schema: {
+        type: "object",
+        required: ["success", "message"],
+        properties: {
+          success: {
+            type: "boolean",
+            example: false,
+          },
+          message: {
+            type: "string",
+            example: description,
+          },
+        },
+      },
+    },
+  },
+});
