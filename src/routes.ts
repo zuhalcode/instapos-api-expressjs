@@ -25,7 +25,7 @@ router.post("/auth/logout", isAuthenticated, authController.logout);
 router.get(
   "/dashboard/stats",
   isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
   dashboardController.getStats,
 );
 
