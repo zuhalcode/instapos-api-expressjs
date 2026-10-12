@@ -17,4 +17,5 @@ export const TABLES = {
   SALES: "sales",
   SALE_ITEMS: "sale_items",
   PAYMENTS: "payments",
+  CUSTOMERS: "customers",
 } as const;

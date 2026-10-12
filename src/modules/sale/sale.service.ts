@@ -2,8 +2,13 @@
 
 import { mapSaleWithDetails } from "./sale.mapper";
 import saleRepository from "./sale.repository";
-import { CreateSaleDTO } from "./sale.schema";
-import { CreateSalePayload, SaleRow, SaleWithDetails } from "./sale.types";
+import { CreateSaleDTO, UpdateSaleDTO } from "./sale.schema";
+import {
+  CreateSalePayload,
+  SaleRow,
+  SaleWithDetails,
+  UpdateSalePayload,
+} from "./sale.types";
 //#endregion
 
 export default {
@@ -28,5 +33,19 @@ export default {
     };
 
     return saleRepository.create(payload);
+  },
+
+  async update(id: string, dto: UpdateSaleDTO): Promise<SaleWithDetails> {
+    const payload: UpdateSalePayload = {
+      updated_at: new Date().toISOString(),
+    };
+
+    if (dto.customer_id !== undefined) {
+      payload.customer_id = dto.customer_id;
+    }
+
+    const sale = await saleRepository.update(id, payload);
+
+    return mapSaleWithDetails(sale);
   },
 };

@@ -5,7 +5,7 @@ import { IReqUser } from "../../utils/interfaces";
 import response from "../../utils/response";
 
 import saleService from "./sale.service";
-import { createSaleSchema } from "./sale.schema";
+import { createSaleSchema, updateSaleSchema } from "./sale.schema";
 import { idSchema } from "../../shared";
 
 //#endregion
@@ -50,6 +50,20 @@ export default {
       const user = await saleService.create(userId, dto);
 
       return response.success(res, user, message, 201);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  async update(req: IReqUser, res: Response): Promise<void> {
+    try {
+      const { id } = idSchema.parse(req.params);
+      const dto = updateSaleSchema.parse(req.body);
+      const message: string = "Sale updated successfully";
+
+      const sale = await saleService.update(id, dto);
+
+      return response.success(res, sale, message);
     } catch (error) {
       return response.error(res, error);
     }

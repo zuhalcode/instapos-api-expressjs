@@ -280,4 +280,18 @@ export const saleSchemas: OpenAPIV3.ComponentsObject["schemas"] = {
       },
     },
   },
+
+  UpdateSaleRequest: {
+    type: "object",
+    properties: {
+      customer_id: {
+        type: "string",
+        format: "uuid",
+        nullable: true,
+        description:
+          "Customer UUID. Optional. Set to null to remove customer association.",
+        example: "550e8400-e29b-41d4-a716-446655440000",
+      },
+    },
+  },
 };

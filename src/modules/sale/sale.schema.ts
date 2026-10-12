@@ -22,6 +22,11 @@ export const createSaleSchema = z.object({
     .min(1),
 });
 
-type CreateSaleDTO = z.infer<typeof createSaleSchema>;
+export const updateSaleSchema = z.object({
+  customer_id: z.string().uuid().nullable().optional(),
+});
 
-export type { CreateSaleDTO };
+type CreateSaleDTO = z.infer<typeof createSaleSchema>;
+type UpdateSaleDTO = z.infer<typeof updateSaleSchema>;
+
+export type { CreateSaleDTO, UpdateSaleDTO };

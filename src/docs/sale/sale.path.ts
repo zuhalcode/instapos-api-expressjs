@@ -206,5 +206,102 @@ export const salePaths: OpenAPIV3.PathsObject = {
         },
       },
     },
+
+    patch: {
+      tags,
+      summary: "Update sale",
+      description:
+        "Update sale details such as associating or disassociating a customer. Omit customer_id to preserve existing, provide a UUID to associate, or provide null to remove customer association.",
+      security: [{ bearerAuth: [] }],
+
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "Sale UUID.",
+          schema: {
+            type: "string",
+            format: "uuid",
+          },
+          example: "69d0c9fa-461b-4e87-97ce-f89ee8877316",
+        },
+      ],
+
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/UpdateSaleRequest",
+            },
+            example: {
+              customer_id: null,
+            },
+          },
+        },
+      },
+
+      responses: {
+        200: {
+          description: "Sale updated successfully",
+          content: {
+            "application/json": {
+              schema: responseSchema(200, "Sale updated successfully", {
+                $ref: "#/components/schemas/Sale",
+              }),
+            },
+          },
+        },
+
+        400: {
+          description: "Invalid request",
+          content: {
+            "application/json": {
+              schema: validationErrorResponseSchema(),
+            },
+          },
+        },
+
+        401: {
+          description: "Unauthorized",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(401, "Unauthorized"),
+            },
+          },
+        },
+
+        403: {
+          description: "Insufficient privileges",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(403, "Insufficient privileges"),
+            },
+          },
+        },
+
+        404: {
+          description: "Sale not found",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(404, "Sale not found"),
+            },
+          },
+        },
+
+        409: {
+          description: "Referenced customer does not exist",
+          content: {
+            "application/json": {
+              schema: errorResponseSchema(
+                409,
+                "Referenced resource does not exist",
+              ),
+            },
+          },
+        },
+      },
+    },
   },
 };

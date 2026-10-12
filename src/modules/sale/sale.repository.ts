@@ -1,7 +1,12 @@
 import { supabase } from "../../libs/supabase";
 import { TABLES } from "../../shared";
 
-import { CreateSalePayload, SaleRow, SaleWithRelations } from "./sale.types";
+import {
+  CreateSalePayload,
+  SaleRow,
+  SaleWithRelations,
+  UpdateSalePayload,
+} from "./sale.types";
 
 const table = TABLES.SALES;
 
@@ -52,6 +57,22 @@ export default {
       p_payments: payload.payments,
       ...(payload.customer_id ? { p_customer_id: payload.customer_id } : {}),
     });
+
+    if (error) throw error;
+
+    return data;
+  },
+
+  async update(
+    id: string,
+    payload: UpdateSalePayload,
+  ): Promise<SaleWithRelations> {
+    const { data, error } = await supabase
+      .from(table)
+      .update(payload)
+      .eq("id", id)
+      .select(select)
+      .single();
 
     if (error) throw error;
 

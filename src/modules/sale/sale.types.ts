@@ -49,6 +49,11 @@ type SaleItemWithDetails = Pick<
   product_name: string;
 };
 
+type UpdateSalePayload = {
+  customer_id?: string | null;
+  updated_at?: string;
+};
+
 export type {
   SaleRow,
   SaleInsert,
@@ -56,4 +61,5 @@ export type {
   SaleWithDetails,
   SaleWithRelations,
   CreateSalePayload,
+  UpdateSalePayload,
 };

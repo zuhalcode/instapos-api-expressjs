@@ -12,6 +12,8 @@ import { supplierController } from "./modules/supplier";
 import { purchaseOrderController } from "./modules/purchase-order";
 import { saleController } from "./modules/sale";
 import { dashboardController } from "./modules/dashboard";
+import { reportController } from "./modules/report";
+import { memberController } from "./modules/member";
 
 //#endregion
 
@@ -27,6 +29,14 @@ router.get(
   isAuthenticated,
   authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
   dashboardController.getStats,
+);
+
+// REPORT
+router.get(
+  "/report/sales",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
+  reportController.getSalesReport,
 );
 
 //#region-users
@@ -215,6 +225,45 @@ router.post(
   isAuthenticated,
   authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   saleController.create,
+);
+
+router.patch(
+  "/sales/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  saleController.update,
+);
+
+//#endregion
+
+//#region-members
+
+router.get(
+  "/members",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
+  memberController.findAll,
+);
+
+router.get(
+  "/members/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
+  memberController.findOne,
+);
+
+router.post(
+  "/members",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
+  memberController.create,
+);
+
+router.patch(
+  "/members/:id",
+  isAuthenticated,
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
+  memberController.update,
 );
 
 //#endregion
