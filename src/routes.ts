@@ -35,7 +35,7 @@ router.get(
 router.get(
   "/report/sales",
   isAuthenticated,
-  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR, ROLES.CASHIER),
+  authorize(ROLES.SUPERUSER, ROLES.SUPERVISOR),
   reportController.getSalesReport,
 );
 
