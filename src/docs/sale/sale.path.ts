@@ -64,19 +64,46 @@ export const salePaths: OpenAPIV3.PathsObject = {
             schema: {
               $ref: "#/components/schemas/CreateSaleRequest",
             },
-            example: {
-              items: [
-                {
-                  product_id: "6f102b98-b126-4e46-bff9-bf564a154669",
-                  quantity: 1,
+            examples: {
+              memberCustomer: {
+                summary: "Sale for a registered member",
+                description: "Create a sale associated with a member customer.",
+                value: {
+                  customer_id: "3d69b584-730d-4bf9-b5ae-7aecea1f4013",
+                  items: [
+                    {
+                      product_id: "5b8f3c21-7a6e-4d91-b2f8-8c3e1a456789",
+                      quantity: 2,
+                    },
+                  ],
+                  payments: [
+                    {
+                      method: "cash",
+                      amount: 100000,
+                    },
+                  ],
                 },
-              ],
-              payments: [
-                {
-                  method: "cash",
-                  amount: 1000000,
+              },
+
+              nonMemberCustomer: {
+                summary: "Sale for a non-member customer",
+                description:
+                  "Create a sale associated with a non-member customer.",
+                value: {
+                  items: [
+                    {
+                      product_id: "5b8f3c21-7a6e-4d91-b2f8-8c3e1a456789",
+                      quantity: 2,
+                    },
+                  ],
+                  payments: [
+                    {
+                      method: "cash",
+                      amount: 100000,
+                    },
+                  ],
                 },
-              ],
+              },
             },
           },
         },
